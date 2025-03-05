@@ -8,37 +8,37 @@ export const menuList = [
   {
     id: 2,
     name: "Explore",
-    link: "/",
+    link: "/explore",
     icon: "explore.svg",
   },
   {
     id: 3,
     name: "Notification",
-    link: "/",
+    link: "/notifications",
     icon: "notification.svg",
   },
   {
     id: 4,
     name: "Messages",
-    link: "/",
+    link: "/messages",
     icon: "message.svg",
   },
   {
     id: 5,
     name: "Bookmarks",
-    link: "/",
+    link: "/bookmarks",
     icon: "bookmark.svg",
   },
   {
     id: 6,
     name: "Jobs",
-    link: "/",
+    link: "/jobs",
     icon: "job.svg",
   },
   {
     id: 7,
     name: "Communities",
-    link: "/",
+    link: "/communities",
     icon: "community.svg",
   },
   {
@@ -50,7 +50,7 @@ export const menuList = [
   {
     id: 9,
     name: "Profile",
-    link: "/",
+    link: "/profile",
     icon: "profile.svg",
   },
   {

@@ -1,4 +1,4 @@
-import { menuList } from "@/constants/menuList";
+import { menuList } from "@/constants/menuList.const";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

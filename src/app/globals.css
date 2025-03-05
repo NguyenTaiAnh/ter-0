@@ -3,17 +3,24 @@
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
+
 @theme {
   /* container */
-  --container-xsm: 515px; /* max-width 514px */
-  --container-sm: 630px; /* max-width */
-  --container-smd: 700px; /* max-width */
-  --container-md:1018px;  /* max-width */
-  --container-xl:1108px; /* max-width */
-  --container-3xl:1295px;/* max-width  */
+  --container-xsm: 515px;
+  /* max-width 514px */
+  --container-sm: 680px;
+  /* max-width */
+  --container-smd: 700px;
+  /* max-width */
+  --container-md: 1018px;
+  /* max-width */
+  --container-xl: 1108px;
+  /* max-width */
+  --container-3xl: 1295px;
+  /* max-width  */
   /* breakpoint */
   --breakpoint-xsm: 515px;
-  --breakpoint-sm: 630px;
+  --breakpoint-sm: 680px;
   --breakpoint-smd: 700px;
   --breakpoint-md: 1018px;
   --breakpoint-lg: 1093px;
@@ -22,16 +29,22 @@
   --breakpoint-3xl: 1295px;
   --breakpoint-4xl: 1366px;
 
+  /* container rightbar */
+  --container-rightbar-md: 290px;
+  --container-rightbar-xl: 350px;
   /* color */
   --color-text-default: #e7e9ea;
-  --color-icon-default:#71767B;
-  --color-cmt-blue: rgba(29,155,240, 0.1);
-  --color-repost-blue: rgba(0, 186,124, 0.1);
-  --color-like-pink: rgba(249,24, 128, 0.1);
-  --color-analysis: rgba(29,155,240);
-  --color-mark-share: rgba(29,155,240,0.1);
-  --color-hover-menu: rgba(231,233,234,0.1);
-  --color-hover-post-btn: rgba(214,219,220)
+  --color-icon-default: #71767B;
+  --color-cmt-blue: rgba(29, 155, 240, 0.1);
+  --color-repost-blue: rgba(0, 186, 124, 0.1);
+  --color-like-pink: rgba(249, 24, 128, 0.1);
+  --color-analysis: rgba(29, 155, 240);
+  --color-mark-share: rgba(29, 155, 240, 0.1);
+  --color-hover-menu: rgba(231, 233, 234, 0.1);
+  --color-hover-post-btn: rgba(214, 219, 220);
+  --color-gray-border: rgb(47, 51, 54);
+  /* --color-btn-post: #EFF3F4; */
+  --color-btn-text-post: #0f1419;
 }
 
 @theme inline {
@@ -74,7 +87,8 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
-*{
+
+* {
   box-sizing: border-box;
 }
 
@@ -151,11 +165,39 @@
   --sidebar-ring: oklch(0.446 0.043 257.281);
 }
 
+@layer utilities {
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.active-tab {
+  position: relative;
+}
+
+.active-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--color-analysis);
+  border-radius: 10px;
 }
