@@ -11,14 +11,14 @@ const PostUpload = () => {
           alt="avatar"
           width={0}
           height={0}
-          className="w-[44px] h-[44px] rounded-full"
+          className="w-[44px] h-[44px] min-w-[44px] rounded-full"
         />
       </div>
-      <div className="pt-1 flex-1 flex flex-col gap-2">
+      <div className="pt-1 flex-1 flex flex-col gap-2 min-w-0">
         <input
           type="text"
           placeholder="What is happening?!"
-          className="text-[20px] text-text-default py-3"
+          className="text-[20px] text-text-default py-3 outline-none bg-transparent placeholder:text-text-default"
         />
         <div className="flex justify-between pb-2 items-center">
           <div className=" flex gap-4">

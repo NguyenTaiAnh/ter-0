@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 interface LeftBarProps {}
 const LeftBar: React.FC<LeftBarProps> = ({}) => {
   return (
-    <section className="sticky top-0 px-2 flex flex-col justify-between pt-2 pb-8 w-fit sm:w-[88px] 3xl:w-[259px] left-0">
+    <section className="sticky top-0 px-2 h-screen flex flex-col justify-between pt-2 pb-8 w-fit sm:w-[88px] 3xl:w-[259px] left-0">
       <div className="flex flex-col items-center 3xl:items-start">
         {/* logo */}
         <div className="p-3 hover:bg-hover-menu w-fit rounded-full">

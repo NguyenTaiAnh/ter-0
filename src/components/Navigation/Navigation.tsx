@@ -13,8 +13,8 @@ const Navigation: React.FC<NavigationProps> = ({ tabs }) => {
   console.log({ tabs });
   const [state, setState] = React.useState("for-you");
   return (
-    <Tabs className="overflow-hidden rounded-0" defaultValue="for-you">
-      <TabsList className="bg-black justify-start w-full flex-nowrap no-scrollbar box-border h-[54px] overflow-x-scroll rounded-none p-0 border-b border-b-gray-border">
+    <Tabs className="rounded-0" defaultValue="for-you">
+      <TabsList className="bg-black z-[9999] sticky top-0 justify-start w-full flex-nowrap no-scrollbar box-border h-[54px] overflow-x-scroll rounded-none p-0 border-b border-b-gray-border">
         {tabs.map((tab) => (
           <TabsTrigger
             onClick={() => setState(tab.tag)}
@@ -30,8 +30,11 @@ const Navigation: React.FC<NavigationProps> = ({ tabs }) => {
       </TabsList>
       {tabs.map((tab) => (
         <TabsContent key={tab.id} value={tab.tag} className="w-full">
-          <PostUpload/>
-          <PostInfo/>
+          {tab.id == 1 && <PostUpload />}
+          <PostInfo />
+          <PostInfo />
+          <PostInfo />
+          <PostInfo />
         </TabsContent>
       ))}
     </Tabs>

@@ -35,16 +35,17 @@
   /* color */
   --color-text-default: #e7e9ea;
   --color-icon-default: #71767B;
-  --color-cmt-blue: rgba(29, 155, 240, 0.1);
-  --color-repost-blue: rgba(0, 186, 124, 0.1);
-  --color-like-pink: rgba(249, 24, 128, 0.1);
-  --color-analysis: rgba(29, 155, 240);
-  --color-mark-share: rgba(29, 155, 240, 0.1);
-  --color-hover-menu: rgba(231, 233, 234, 0.1);
-  --color-hover-post-btn: rgba(214, 219, 220);
-  --color-gray-border: rgb(47, 51, 54);
+  --color-cmt-blue: #1D9BF0;
+  --color-repost-blue: #00BA7C;
+  --color-like-pink: #F91880;
+  --color-analysis: #1D9BF0;
+  --color-mark-share: #1D9BF0;
+  --color-hover-menu: #E7E9EA;
+  --color-hover-post-btn: #D6DBDC;
+  --color-gray-border: #2F3336;
   /* --color-btn-post: #EFF3F4; */
   --color-btn-text-post: #0f1419;
+  --color-btn-subscribe: #1d9bf0
 }
 
 @theme inline {
@@ -185,6 +186,12 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  button:not([disabled]),
+  [role="button"]:not([disabled]) {
+    cursor: pointer;
+  }
+  
 }
 
 .active-tab {
