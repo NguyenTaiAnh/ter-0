@@ -40,7 +40,7 @@
   --color-like-pink: #F91880;
   --color-analysis: #1D9BF0;
   --color-mark-share: #1D9BF0;
-  --color-hover-menu: #E7E9EA;
+  --color-hover-menu: rgba(231, 233, 234, 0.1);
   --color-hover-post-btn: #D6DBDC;
   --color-gray-border: #2F3336;
   /* --color-btn-post: #EFF3F4; */
