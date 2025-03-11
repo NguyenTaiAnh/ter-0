@@ -1,12 +1,19 @@
-import React from 'react'
+import { Footer } from "@/components/Footer";
+import { AuthContainer } from "@/containers/Auth";
+import { AuthLayout } from "@/layouts/AuthLayout";
+import React from "react";
 
-interface RootAuthLayoutProps {
-    children: React.ReactNode
+interface AuthRootLayoutProps {
+  children: React.ReactNode;
 }
-const RootAuthLayout: React.FC<RootAuthLayoutProps> = ({children}) => {
+function AuthRootLayout({ children }: AuthRootLayoutProps) {
   return (
-    <div>{children}</div>
-  )
+    <AuthLayout>
+      {children}
+      <AuthContainer />
+      <Footer />
+    </AuthLayout>
+  );
 }
 
-export default RootAuthLayout
+export default AuthRootLayout;

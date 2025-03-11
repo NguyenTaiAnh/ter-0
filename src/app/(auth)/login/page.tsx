@@ -1,9 +1,6 @@
-import React from 'react'
 
-const page = () => {
-  return (
-    <div>Login</div>
-  )
+function page() {
+  return null
 }
 
 export default page

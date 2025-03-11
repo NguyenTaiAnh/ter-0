@@ -28,10 +28,17 @@
   --breakpoint-2xl: 1179px;
   --breakpoint-3xl: 1295px;
   --breakpoint-4xl: 1366px;
+  --breakpoint-auth-sm:515px;
+  --breakpoint-auth-md:1016px;
+  /* --breakpoint-auth-sm:515px; */
 
   /* container rightbar */
   --container-rightbar-md: 290px;
   --container-rightbar-xl: 350px;
+
+  /* container auth */
+  --container-auth-lg:10001px;
+
   /* color */
   --color-text-default: #e7e9ea;
   --color-icon-default: #71767B;
@@ -43,9 +50,12 @@
   --color-hover-menu: rgba(231, 233, 234, 0.1);
   --color-hover-post-btn: #D6DBDC;
   --color-gray-border: #2F3336;
-  /* --color-btn-post: #EFF3F4; */
+  --color-gray-line: #EFF3F4;
   --color-btn-text-post: #0f1419;
-  --color-btn-subscribe: #1d9bf0
+  --color-btn-subscribe: #1d9bf0;
+  --color-text-small: #536471;
+  --color-hover-btn:#1A8CD8;
+  --color-hover-opacity: rgba(29,155,240,0.5);
 }
 
 @theme inline {
