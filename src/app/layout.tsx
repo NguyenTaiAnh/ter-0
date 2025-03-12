@@ -19,21 +19,9 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: "default",
     title: "A",
-    startupImage: "/general/post.jpeg"
-    // startupImage: [
-    //   {
-    //     media:
-    //       "screen and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)",
-    //     url: "/general/post.jpeg",
-    //   },
-    //   {
-    //     media:
-    //       "screen and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)",
-    //     url: "/general/post.jpeg",
-    //   },
-    // ],
+    startupImage: "/general/post.jpeg",
   },
-    other: { 'apple-mobile-web-app-capable': 'yes' }
+  other: { "apple-mobile-web-app-capable": "yes" },
 };
 
 export default function RootLayout({
@@ -41,7 +29,7 @@ export default function RootLayout({
   modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en">

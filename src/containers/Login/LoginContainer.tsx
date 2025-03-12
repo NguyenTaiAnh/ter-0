@@ -1,74 +1,81 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 const LoginContainer = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
-    <section className="absolute top-0 left-0 w-full h-full bg-[##80808080]  backdrop-blur-[5px] ">
-      <div className="shadow-2xl p-5 flex flex-col justify-center items-center  rounded-3xl absolute top-1/2 left-1/2 bottom-0 right-0  bg-black  -translate-x-1/2 -translate-y-1/2">
-        <div className="">
-          <Button onClick={()=>router.back()}>
-            <X />
-          </Button>
-          <Image
-            src={"icons/logo.svg"}
-            alt=""
-            width={0}
-            height={0}
-            className="w-[28px] h-[28px]"
-          />
-        </div>
-        <h1>Sign in to X</h1>
-        <div className="flex flex-col gap-2.5 w-full">
-          <Button
-            variant={"outline"}
-            className="rounded-4xl transition duration-[0.2s] bg-white text-black"
-          >
-            Sign up with Google
-          </Button>
-          <Button
-            variant={"outline"}
-            className="bg-white transition duration-[0.2s] rounded-4xl font-bold text-black"
-          >
-            Sign up with Apple
-          </Button>
-        </div>
-        <div className="my-1">
-          <p
-            className=" relative text-center before:content-[''] before:w-[45%] before:h-[1px] before:absolute before:top-[50%] before:left-0 before:bg-gray-line 
-             after:content-[''] after:w-[45%] after:h-[1px] after:absolute after:top-[50%] after:right-0 after:bg-gray-line
-            "
-          >
-            or
-          </p>
-        </div>
-        <div>
-          <input type="text" placeholder="Phone, email, or usernames" />
-        </div>
-        <div className="flex flex-col gap-4 ">
-          <Button
-            variant={"outline"}
-            className="rounded-4xl transition duration-[0.2s] bg-white text-black"
-          >
-            Next
-          </Button>
-          <Button
-            variant={"outline"}
-            className="rounded-4xl border-0 transition duration-[0.2s] bg-black text-white"
-          >
-            Forgot password
-          </Button>
+    <section className="fixed inset-0 z-50 flex items-center justify-center ">
+      <div className="absolute inset-0 bg-[#242d35] opacity-[0.5] " />
+      <div className="relative flex flex-col z-10 bg-black text-white rounded-xl w-full max-w-[600px] h-[650px]">
+        <div className="flex relative h-[53px]">
+          <div className="absolute inset-0">
+            <Button onClick={() => router.push('/')} className="" variant={'link'}>
+              <X className="text-white"/>
+            </Button>
+          </div>
+          <div className="flex-1  flex justify-center items-center">
+            <Image
+              src={"icons/logo.svg"}
+              alt=""
+              width={0}
+              height={0}
+              className="w-[28px]  h-[28px]"
+            />
+          </div>
         </div>
 
-        <p>
-          Don&apos;t have an account?{" "}
-          <span className="text-mark-share">Sign up</span>
-        </p>
+        <div className="px-8 mx-auto pb-12 flex flex-col  gap-6 w-[364px]">
+          <h1 className="mt-4 text-[31px] font-bold w-full">Sign in to X</h1>
+            <Button
+              variant={"outline"}
+              className="rounded-4xl transition duration-[0.2s] bg-white text-black"
+            >
+              Sign up with Google
+            </Button>
+            <Button
+              variant={"outline"}
+              className="bg-white transition duration-[0.2s] rounded-4xl font-bold text-black"
+            >
+              Sign up with Apple
+            </Button>
+          <div className="my-1">
+            <p
+              className=" relative text-center before:content-[''] before:w-[45%] before:h-[1px] before:absolute before:top-[50%] before:left-0 before:bg-gray-line 
+             after:content-[''] after:w-[45%] after:h-[1px] after:absolute after:top-[50%] after:right-0 after:bg-gray-line
+            "
+            >
+              or
+            </p>
+          </div>
+          <div>
+            <input type="text" placeholder="Phone, email, or usernames..." className="h-[56px] w-full px-2 border-[1px] rounded-md" />
+          </div>
+          <div className="flex flex-col gap-4 ">
+            <Button
+              variant={"outline"}
+              className="rounded-4xl transition duration-[0.2s] bg-white text-black"
+            >
+              Next
+            </Button>
+            <Button
+              variant={"outline"}
+              className="rounded-4xl  border-white transition duration-[0.2s] bg-black text-white"
+            >
+              Forgot password
+            </Button>
+          </div>
+
+          <p>
+            Don&apos;t have an account?{" "}
+            <Link href={'/signup'} className="text-mark-share">Sign up</Link>
+          </p>
+        </div>
       </div>
     </section>
   );
