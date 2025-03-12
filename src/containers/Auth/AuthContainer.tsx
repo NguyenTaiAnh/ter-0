@@ -5,8 +5,8 @@ import React from "react";
 
 function AuthContainer() {
   return (
-    <main className="grid grid-cols-2 relative  w-full h-screen justify-center auth-md:items-center p-4">
-      <div className="  hidden justify-center items-center auth-md:flex">
+    <main className="flex flex-1 flex-row relative  w-full h-screen justify-center auth-md:items-center p-4">
+      <div className=" flex-[1 1 50%] hidden w-full justify-center items-center auth-md:flex">
         <Image
           src={"/icons/logo.svg"}
           alt="logo"
@@ -15,7 +15,7 @@ function AuthContainer() {
           className="w-[250px] h-[250px]"
         ></Image>
       </div>
-      <div className="auth-md:grid-cols-1 p-5 max-[1015px]:w-[528px]">
+      <div className="auth-md:flex-[0 0 auto] w-full shirk-0 grow-0 p-5 max-[1016px]:w-[528px]">
         <div className="auth-md:hidden auth-sm:mb-[48px]">
           <Image
             src={"/icons/logo.svg"}

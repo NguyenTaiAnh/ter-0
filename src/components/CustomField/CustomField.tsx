@@ -11,6 +11,7 @@ interface CustomFieldProps {
   label?:string,
   type: "text" | "email" | "date" | "number" | "password" | "checkbox" | "radio";
   placeholder?:string
+  className?:string
 }
 const CustomField: React.FC<CustomFieldProps> = ({
   field,
@@ -18,7 +19,8 @@ const CustomField: React.FC<CustomFieldProps> = ({
   showLabel,
   label,
   type,
-  placeholder
+  placeholder,
+  className
 }) => {
   return (
     <FormField
@@ -35,6 +37,7 @@ const CustomField: React.FC<CustomFieldProps> = ({
               value={controllerField.value}
               onChange={controllerField.onChange}
               placeholder={placeholder}
+              className={className}
             />
           </FormControl>
           <FormMessage />

@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { setLocalStorage } from "@/ultils";
 import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,15 +9,22 @@ import React from "react";
 
 const LoginContainer = () => {
   const router = useRouter();
-
+  const handleLogin = () => {
+    setLocalStorage("token", "abc");
+    router.push("/");
+  }
   return (
     <section className="fixed inset-0 z-50 flex items-center justify-center ">
       <div className="absolute inset-0 bg-[#242d35] opacity-[0.5] " />
-      <div className="relative flex flex-col z-10 bg-black text-white rounded-xl w-full max-w-[600px] h-[650px]">
+      <div className="relative flex flex-col z-10 bg-black text-white rounded-xl w-full  max-w-full h-full modal-md:max-w-[600px] modal-md:h-[650px]">
         <div className="flex relative h-[53px]">
           <div className="absolute inset-0">
-            <Button onClick={() => router.push('/')} className="" variant={'link'}>
-              <X className="text-white"/>
+            <Button
+              onClick={() => router.push("/")}
+              className=""
+              variant={"link"}
+            >
+              <X className="text-white" />
             </Button>
           </div>
           <div className="flex-1  flex justify-center items-center">
@@ -30,20 +38,20 @@ const LoginContainer = () => {
           </div>
         </div>
 
-        <div className="px-8 mx-auto pb-12 flex flex-col  gap-6 w-[364px]">
+        <div className="px-8 mx-auto pb-12 flex flex-col  gap-6 w-[364px] justify-center h-full">
           <h1 className="mt-4 text-[31px] font-bold w-full">Sign in to X</h1>
-            <Button
-              variant={"outline"}
-              className="rounded-4xl transition duration-[0.2s] bg-white text-black"
-            >
-              Sign up with Google
-            </Button>
-            <Button
-              variant={"outline"}
-              className="bg-white transition duration-[0.2s] rounded-4xl font-bold text-black"
-            >
-              Sign up with Apple
-            </Button>
+          <Button
+            variant={"outline"}
+            className="rounded-4xl transition duration-[0.2s] bg-white text-black"
+          >
+            Sign up with Google
+          </Button>
+          <Button
+            variant={"outline"}
+            className="bg-white transition duration-[0.2s] rounded-4xl font-bold text-black"
+          >
+            Sign up with Apple
+          </Button>
           <div className="my-1">
             <p
               className=" relative text-center before:content-[''] before:w-[45%] before:h-[1px] before:absolute before:top-[50%] before:left-0 before:bg-gray-line 
@@ -54,10 +62,15 @@ const LoginContainer = () => {
             </p>
           </div>
           <div>
-            <input type="text" placeholder="Phone, email, or usernames..." className="h-[56px] w-full px-2 border-[1px] rounded-md" />
+            <input
+              type="text"
+              placeholder="Phone, email, or usernames..."
+              className="h-[56px] w-full px-2 border-[1px] rounded-md"
+            />
           </div>
           <div className="flex flex-col gap-4 ">
             <Button
+              onClick={() => handleLogin()}
               variant={"outline"}
               className="rounded-4xl transition duration-[0.2s] bg-white text-black"
             >
@@ -73,7 +86,12 @@ const LoginContainer = () => {
 
           <p>
             Don&apos;t have an account?{" "}
-            <Link href={'/signup'} className="text-mark-share">Sign up</Link>
+            <Link
+              href={"/signup?input_flow_data=requested_variant"}
+              className="text-mark-share"
+            >
+              Sign up
+            </Link>
           </p>
         </div>
       </div>

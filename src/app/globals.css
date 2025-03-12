@@ -31,6 +31,7 @@
   --breakpoint-auth-sm:515px;
   --breakpoint-auth-md:1016px;
   /* --breakpoint-auth-sm:515px; */
+  --breakpoint-modal-md:688px;
 
   /* container rightbar */
   --container-rightbar-md: 290px;
