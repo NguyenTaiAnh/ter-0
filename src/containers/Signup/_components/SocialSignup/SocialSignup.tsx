@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { setLocalStorage } from "@/ultils";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function SocialSignup() {
+  const router = useRouter()
   return (
     <div className=" mx-auto flex flex-col justify-center items-center gap-6 w-full h-full">
       <div className="flex flex-col gap-6 w-[364px] px-8">
@@ -31,7 +32,7 @@ function SocialSignup() {
           </p>
         </div>
         <Button
-          onClick={() => setLocalStorage("token", "abc")}
+          onClick={() => router.push('/signup')}
           variant={"outline"}
           className="bg-white transition duration-[0.2s] rounded-4xl font-bold text-black"
         >

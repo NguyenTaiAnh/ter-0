@@ -2,7 +2,7 @@ export const menuList = [
   {
     id: 1,
     name: "Homepage",
-    link: "/",
+    link: "/home",
     icon: "home.svg",
   },
   {

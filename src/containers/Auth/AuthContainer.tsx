@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 function AuthContainer() {
+  
   return (
     <main className="flex flex-1 flex-row relative  w-full h-screen justify-center auth-md:items-center p-4">
       <div className=" flex-[1 1 50%] hidden w-full justify-center items-center auth-md:flex">

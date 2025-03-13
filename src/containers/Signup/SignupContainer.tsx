@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { FormSignup } from "./_components/FormSignup";
 import { SocialSignup } from "./_components/SocialSignup";
@@ -11,6 +11,10 @@ import { SocialSignup } from "./_components/SocialSignup";
 const SignupContainer = () => {
   const router = useRouter();
   const search = useSearchParams();
+  const pathname = usePathname();
+  if (!pathname.includes("/login")) {
+    return null;
+  }
   const isSocial = search.get("input_flow_data") ? true : false;
   console.log({ isSocial });
   return (
