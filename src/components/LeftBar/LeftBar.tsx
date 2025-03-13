@@ -2,8 +2,8 @@ import { menuList } from "@/constants/menuList.const";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Avatar, AvatarFallback } from "../ui/avatar";
 import { cn } from "@/lib/utils";
+import { AccountMenu } from "./_components/AccountMenu";
 
 interface LeftBarProps {}
 const LeftBar: React.FC<LeftBarProps> = ({}) => {
@@ -13,13 +13,19 @@ const LeftBar: React.FC<LeftBarProps> = ({}) => {
         {/* logo */}
         <div className="p-3 hover:bg-hover-menu w-fit rounded-full">
           <Link className="" href={""}>
-            <Image src='icons/logo.svg' alt="" width={0} height={0} className="w-8 h-8"></Image>
+            <Image
+              src="icons/logo.svg"
+              alt=""
+              width={0}
+              height={0}
+              className="w-8 h-8"
+            ></Image>
           </Link>
         </div>
         {/* menu */}
         <div className="flex flex-col text-[20px]">
           {menuList.map((item) => (
-            <div key={item.id} >
+            <div key={item.id}>
               <Link
                 href={item.link}
                 className="flex justify-center 3xl:justify-start gap-3 p-3 hover:bg-hover-menu w-fit rounded-full"
@@ -30,7 +36,14 @@ const LeftBar: React.FC<LeftBarProps> = ({}) => {
                   height={26}
                   alt="item.image"
                 ></Image>
-                <p className={cn(item.id == 1&& 'font-bold' , 'hidden 3xl:inline') }>{item.name}</p>
+                <p
+                  className={cn(
+                    item.id == 1 && "font-bold",
+                    "hidden 3xl:inline"
+                  )}
+                >
+                  {item.name}
+                </p>
               </Link>
             </div>
           ))}
@@ -41,21 +54,15 @@ const LeftBar: React.FC<LeftBarProps> = ({}) => {
         >
           Post
         </Link>
-        <Link href={'/'} className="3xl:hidden my-4 w-[50px] h-[50px] hover:bg-hover-post-btn bg-white rounded-full flex justify-center items-center">
-          <Image src='icons/post.svg' alt="" width={24} height={24}/>
+        <Link
+          href={"/"}
+          className="3xl:hidden my-4 w-[50px] h-[50px] hover:bg-hover-post-btn bg-white rounded-full flex justify-center items-center"
+        >
+          <Image src="icons/post.svg" alt="" width={24} height={24} />
         </Link>
       </div>
       {/* profile */}
-      <div className="flex justify-center 3xl:justify-between w-full items-center p-3 hover:bg-hover-menu cursor-pointer rounded-full">
-        <Avatar className="w-[40px] h-[40px]">
-          <AvatarFallback className="bg-gray-600">AN</AvatarFallback>
-        </Avatar>
-        <div className="flex-1 text-[15px] text-center hidden 3xl:inline">
-          <p className="font-bold">username</p>
-          <p className="text-icon-default">@username</p>
-        </div>
-        <div className="flex-1 text-end hidden 3xl:inline">...</div>
-      </div>
+      <AccountMenu/>
     </section>
   );
 };

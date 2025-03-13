@@ -1,0 +1,33 @@
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Link from "next/link";
+import React from "react";
+
+function AccountMenu() {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger className="focus-visible:border-0 focus-visible:outline-none">
+        <div className="flex justify-center 3xl:justify-between w-full items-center p-3 hover:bg-hover-menu cursor-pointer rounded-full">
+          <Avatar className="w-[40px] h-[40px]">
+            <AvatarFallback className="bg-gray-600">AN</AvatarFallback>
+          </Avatar>
+          <div className="flex-1 text-[15px] text-center hidden 3xl:inline">
+            <p className="font-bold">username</p>
+            <p className="text-icon-default">@username</p>
+          </div>
+          <div className="flex-1 text-end hidden 3xl:inline">...</div>
+        </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-[300px] py-3 flex flex-col text-white text-[15px] font-bold bg-black focus-visible:border-0 focus-visible:outline-none">
+        <Link href={'/login'} className="px-4 py-3 hover:bg-hover-menu">Add an existing account</Link>
+        <Link href={'/logout'} className="px-4 py-3 hover:bg-hover-menu">Logout @username</Link>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+export default AccountMenu;

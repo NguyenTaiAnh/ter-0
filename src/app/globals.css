@@ -57,6 +57,8 @@
   --color-text-small: #536471;
   --color-hover-btn:#1A8CD8;
   --color-hover-opacity: rgba(29,155,240,0.5);
+  --color-modal-bg: rgba(91, 112, 131, 0.4);
+  --color-hover-btn-black: rgba(239,243,244,0.1);
 }
 
 @theme inline {

@@ -7,7 +7,7 @@ interface MainLayoutProps {
 }
 function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className="flex flex-row justify-center max-w-xsm sm:max-w-sm smd:max-w-smd md:max-w-md xl:max-w-xl 3xl:max-w-3xl bg-black mx-auto text-white">
+    <div className="flex flex-row justify-center w-full sm:max-w-sm smd:max-w-smd md:max-w-md xl:max-w-xl 3xl:max-w-3xl bg-black sm:mx-auto text-white">
       <LeftBar />
       {children}
       <RightBar />

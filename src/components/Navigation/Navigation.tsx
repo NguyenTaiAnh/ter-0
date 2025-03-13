@@ -14,7 +14,7 @@ const Navigation: React.FC<NavigationProps> = ({ tabs }) => {
   const [state, setState] = React.useState("for-you");
   return (
     <Tabs className="rounded-0" defaultValue="for-you">
-      <TabsList className="bg-black z-[9999] sticky top-0 justify-start w-full flex-nowrap no-scrollbar box-border h-[54px] overflow-x-scroll rounded-none p-0 border-b border-b-gray-border">
+      <TabsList className="bg-black z-[10] sticky top-0 justify-start w-full flex-nowrap no-scrollbar box-border h-[54px] overflow-x-scroll rounded-none p-0 border-b border-b-gray-border">
         {tabs.map((tab) => (
           <TabsTrigger
             onClick={() => setState(tab.tag)}
