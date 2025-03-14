@@ -1,10 +1,12 @@
+"use client"
 import { Button } from "@/components/ui/button";
+import { useStore } from "@/stores";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 function AuthContainer() {
-  
+  const {setUrlPrevious} = useStore()
   return (
     <main className="flex flex-1 flex-row relative  w-full h-screen justify-center auth-md:items-center p-4">
       <div className=" flex-[1 1 50%] hidden w-full justify-center items-center auth-md:flex">
@@ -71,6 +73,7 @@ function AuthContainer() {
 
           <p className="mt-10 mb-5">Already have an account?</p>
           <Link
+            onClick={()=>setUrlPrevious('/')}
             href={"/login"}
             className="bg-white flex justify-center items-center w-[300px] h-[38px] rounded-4xl font-bold border-0 hover:bg-hover-opacity hover:text-mark-share text-mark-share mb-2 transition duration-[0.2s]"
           >

@@ -7,31 +7,37 @@ import { setCookie } from "nookies";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { UserLogin } from "@/mocks/db";
+import { useStore } from "@/stores";
 
 const LoginContainer = () => {
+  const { urlPrevious } = useStore();
+  const isAuthPage = urlPrevious == "/" ? true : false;
   const router = useRouter();
-   const pathname =usePathname();
-    if (!pathname.includes("/login")) {
-      return null;
+  const pathname = usePathname();
+  const handleClose = () => {
+    if (isAuthPage) {
+      router.push("/");
+    } else {
+      router.back();
     }
+  };
+  if (!pathname.includes("/login")) {
+    return null;
+  }
   const handleLogin = () => {
     router.push("/home");
     const expires = new Date(Date.now() + 1 + 1000 * 60 * 60 * 24 * 365); // 365 days
     setCookie(null, "user", JSON.stringify(UserLogin), {
       expires,
     });
-  }
+  };
   return (
     <section className="fixed inset-0 z-50 flex items-center justify-center ">
       <div className="absolute inset-0 bg-[#242d35] opacity-[0.5] " />
       <div className="relative flex flex-col z-10 bg-black text-white rounded-xl w-full  max-w-full h-full modal-md:max-w-[600px] modal-md:h-[650px]">
         <div className="flex relative h-[53px]">
           <div className="absolute inset-0">
-            <Button
-              onClick={() => router.push("/")}
-              className=""
-              variant={"link"}
-            >
+            <Button onClick={handleClose} className="" variant={"link"}>
               <X className="text-white" />
             </Button>
           </div>
@@ -91,16 +97,17 @@ const LoginContainer = () => {
               Forgot password
             </Button>
           </div>
-
-          <p>
-            Don&apos;t have an account?{" "}
-            <Link
-              href={"/signup?input_flow_data=requested_variant"}
-              className="text-mark-share"
-            >
-              Sign up
-            </Link>
-          </p>
+          {isAuthPage && (
+            <p>
+              Don&apos;t have an account?{" "}
+              <Link
+                href={"/signup?input_flow_data=requested_variant"}
+                className="text-mark-share"
+              >
+                Sign up
+              </Link>
+            </p>
+          )}
         </div>
       </div>
     </section>

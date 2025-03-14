@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
   const cookieStore = await cookies()
 
   const { pathname } = request.nextUrl;
-  if (pathname.startsWith('/login')) {
+  if (pathname.startsWith('/login') || pathname.startsWith('/signup')) {
     return NextResponse.next();
   }
 

@@ -12,7 +12,7 @@ const SignupContainer = () => {
   const router = useRouter();
   const search = useSearchParams();
   const pathname = usePathname();
-  if (!pathname.includes("/login")) {
+  if (!pathname.includes("/signup")) {
     return null;
   }
   const isSocial = search.get("input_flow_data") ? true : false;

@@ -44,7 +44,7 @@ export const menuList = [
   {
     id: 8,
     name: "Premium",
-    link: "/",
+    link: "/premium",
     icon: "logo.svg",
   },
   {
@@ -56,7 +56,7 @@ export const menuList = [
   {
     id: 10,
     name: "More",
-    link: "/",
+    link: "/more",
     icon: "more.svg",
   },
 ];

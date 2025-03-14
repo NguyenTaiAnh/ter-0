@@ -1,13 +1,16 @@
+"use client" 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useStore } from "@/stores";
 import Link from "next/link";
 import React from "react";
 
 function AccountMenu() {
+  const {setUrlPrevious} = useStore()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus-visible:border-0 focus-visible:outline-none">
@@ -23,7 +26,7 @@ function AccountMenu() {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[300px] py-3 flex flex-col text-white text-[15px] font-bold bg-black focus-visible:border-0 focus-visible:outline-none">
-        <Link href={'/login'} className="px-4 py-3 hover:bg-hover-menu">Add an existing account</Link>
+        <Link href={'/login'} onClick={()=>setUrlPrevious('global')} className="px-4 py-3 hover:bg-hover-menu">Add an existing account</Link>
         <Link href={'/logout'} className="px-4 py-3 hover:bg-hover-menu">Logout @username</Link>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -50,12 +50,12 @@ const LeftBar: React.FC<LeftBarProps> = ({}) => {
         </div>
         <Link
           className="hidden 3xl:w-[233px] 3xl:my-4 hover:bg-hover-post-btn text-[17px] font-bold 3xl:flex justify-center items-center rounded-3xl h-[52px] px-8 bg-white text-black"
-          href={"/"}
+          href={"/post"}
         >
           Post
         </Link>
         <Link
-          href={"/"}
+          href={"/post"}
           className="3xl:hidden my-4 w-[50px] h-[50px] hover:bg-hover-post-btn bg-white rounded-full flex justify-center items-center"
         >
           <Image src="icons/post.svg" alt="" width={24} height={24} />
