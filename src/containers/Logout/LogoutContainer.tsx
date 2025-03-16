@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { destroyCookie } from "nookies";
 import React from "react";
 
 const LogoutContainer = () => {
@@ -12,6 +13,7 @@ const LogoutContainer = () => {
   }
   const handleLogout = () => {
     router.push("/");
+    destroyCookie(null,'user')
     // const expires = new Date(Date.now() + 1 + 1000 * 60 * 60 * 24 * 365); // 365 days
     // setCookie(null, "user", JSON.stringify(UserLogin), {
     //   expires,

@@ -1,10 +1,9 @@
 "use client";
 import { PostAction } from "@/components/Post/PostAction";
+import { PostChoose } from "@/components/Post/PostChoose";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { ChevronDown, CirclePower, X } from "lucide-react";
+import { CirclePower, X } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
@@ -40,24 +39,19 @@ const PostContainer = () => {
             />
           </div>
           <div className="flex-1 h-[164px] ">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex pb-3">
-                Everyone
-                <ChevronDown className="" />
-              </DropdownMenuTrigger>
-            </DropdownMenu>
+            <PostChoose />
             <div className="h-[120px] py-3">
               <Input
                 placeholder="What is Happening?!"
                 type="text"
-                className="px-0 border-0 outline-0 text- focus-visible:border-0 focus-visible:outline-0 text-[20px] text-text-default py-3 outline-none bg-transparent placeholder:text-text-default"
+                className="px-0 border-0 outline-0 placeholder:text-text-small focus-visible:border-0 focus-visible:outline-0 text-[20px] text-text-default py-3 focus-visible:ring-0 bg-transparent"
               />
             </div>
           </div>
         </div>
 
         <div className="relative">
-          <div className="flex pb-3 border-b-[1px] border-gray-border">
+          <div className="flex pb-3 border-b-[1px] border-gray-border items-center gap-2">
             <CirclePower className="font-bold text-[14px] text-mark-share" />
             <p className="font-bold text-[14px] text-mark-share">
               Everyone can reply

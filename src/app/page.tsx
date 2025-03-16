@@ -7,7 +7,9 @@ import { cookies } from "next/headers";
 
 export default async function page() {
   const cookieStore = await cookies();
-  const isAuth = cookieStore.get("user")?.value != "" ? true : false;
+  const isAuth = !cookieStore.get("user")?.value ? false : true;
+  console.log("isauth: ", cookieStore.get("user")?.value);
+  console.log("reload");
   return isAuth ? (
     <MainLayout>
       <main className="border-x-[1px] flex-1 border-gray-border w-full min-w-0 max-w-[600px]">

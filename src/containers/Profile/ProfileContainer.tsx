@@ -1,14 +1,22 @@
-"use client"
-import { useParams } from 'next/navigation'
-import React from 'react'
+import { Image } from "@/components/Image";
+import { HeaderProfile } from "@/components/Profile/HeaderProfile";
+import React from "react";
 
 function ProfileContainer() {
-    const router= useParams();
   return (
-    <div>
-      test ProfileContainer {router.username}
-    </div>
-  )
+    <section>
+      <HeaderProfile />
+      <div className="w-full h-[200px]">
+        <Image
+          path="general/cover.jpg"
+          alt="banner"
+          w={0}
+          h={0}
+          className="w-full h-[200px]"
+        />
+      </div>
+    </section>
+  );
 }
 
-export default ProfileContainer
+export default ProfileContainer;

@@ -50,7 +50,7 @@ export const menuList = [
   {
     id: 9,
     name: "Profile",
-    link: "/profile",
+    link: "/username",
     icon: "profile.svg",
   },
   {
