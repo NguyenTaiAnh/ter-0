@@ -10,11 +10,10 @@ interface NavigationProps {
   tabs: TTabs[];
 }
 const Navigation: React.FC<NavigationProps> = ({ tabs }) => {
-  console.log({ tabs });
-  const [state, setState] = React.useState("for-you");
+  const [state, setState] = React.useState(tabs[0].tag);
   return (
-    <Tabs className="rounded-0" defaultValue="for-you">
-      <TabsList className="bg-black z-[10] sticky top-0 justify-start w-full flex-nowrap no-scrollbar box-border h-[54px] overflow-x-scroll rounded-none p-0 border-b border-b-gray-border">
+    <Tabs className="rounded-0" defaultValue={tabs[0].tag}>
+      <TabsList className="bg-black z-[50] sticky top-0 justify-start w-full flex-nowrap no-scrollbar box-border h-[54px] overflow-x-scroll rounded-none p-0 border-b border-b-gray-border">
         {tabs.map((tab) => (
           <TabsTrigger
             onClick={() => setState(tab.tag)}

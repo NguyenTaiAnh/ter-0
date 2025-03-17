@@ -1,5 +1,5 @@
 import Navigation from '@/components/Navigation/Navigation'
-import { tabsHome } from '@/constants/tabsHome.const'
+import { tabsHome } from '@/constants/tabs.const'
 import React from 'react'
 
 const HomeContainer = () => {

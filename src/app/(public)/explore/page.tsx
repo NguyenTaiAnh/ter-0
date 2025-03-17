@@ -1,8 +1,9 @@
+import ExploreContainer from '@/containers/Explore/ExploreContainer'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>page</div>
+    <ExploreContainer/>
   )
 }
 

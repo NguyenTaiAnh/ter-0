@@ -47,3 +47,36 @@ export const tabsHome: TTabs[] = [
         tag:'python',
     }
 ]
+
+export const tabsProfile: TTabs[] = [
+    {
+        id:0,
+        title: 'Posts',
+        tag:'posts',
+    },
+    {
+        id:2,
+        title: 'Replies',
+        tag:'replies',
+    },
+    {
+        id:3,
+        title: 'Highlights',
+        tag:'highlights',
+    },
+    {
+        id:4,
+        title: 'Articles',
+        tag:'articles',
+    },
+    {
+        id:5,
+        title: 'Media',
+        tag:'media',
+    },
+    {
+        id:6,
+        title: 'Likes',
+        tag:'likes',
+    },
+]

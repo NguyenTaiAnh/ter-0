@@ -11,7 +11,7 @@ import React from "react";
 function PostChoose() {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex pb-3">
+      <DropdownMenuTrigger className="flex mb-3 px-2 text-[14px] rounded-full text-cmt-blue font-bold border-[1px] border-gray-border">
         Everyone <ChevronDown />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-black h-[480px] overflow-hidden border-0 outline-0 shadow-[0_0_10px] focus-visible:border-0 focus-visible:outline-0 text-white py-3 px-0">

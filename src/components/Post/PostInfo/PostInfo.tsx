@@ -1,16 +1,16 @@
-import Image from "next/image";
 import React from "react";
 import { PostInteraction } from "../PostInteraction";
+import { Image } from "@/components/Image";
 
 const PostInfo = () => {
   return (
     <section className="pt-3 px-4 flex pb-3 border-b-gray-border border-b">
       <div className="mr-2">
         <Image
-          src="/general/avatar.png"
+          path="/general/avatar.jpg"
           alt="avatar"
-          width={0}
-          height={0}
+          w={0}
+          h={0}
           className="w-[44px] h-[44px] rounded-full min-w-[44px]"
         />
       </div>
@@ -24,10 +24,10 @@ const PostInfo = () => {
           <p className=" text-text-default font-bold">Hello world</p>
           <div className="picture my-2">
             <Image
-              src="/general/post.jpeg"
+              path="/general/post.jpeg"
               alt="post"
-              width={0}
-              height={0}
+              w={0}
+              h={0}
               className="w-full"
               
             />

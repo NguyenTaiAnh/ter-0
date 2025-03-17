@@ -1,23 +1,29 @@
+"use client";
 import { menuList } from "@/constants/menuList.const";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { AccountMenu } from "./_components/AccountMenu";
+import { Image } from "../Image";
+import { usePathname } from "next/navigation";
 
 interface LeftBarProps {}
 const LeftBar: React.FC<LeftBarProps> = ({}) => {
+  const [active, setActive] = React.useState<string>('/home')
+  const pathName = usePathname();
+  React.useEffect(()=>{setActive(pathName)},[pathName])
   return (
     <section className="sticky top-0 px-2 h-screen flex flex-col justify-between pt-2 pb-8 w-fit sm:w-[88px] 3xl:w-[259px] left-0">
       <div className="flex flex-col items-center 3xl:items-start">
         {/* logo */}
         <div className="p-3 hover:bg-hover-menu w-fit rounded-full">
-          <Link className="" href={""}>
+          <Link className="" href={"/home"}>
             <Image
-              src="icons/logo.svg"
+              path="icons/logo.svg"
               alt=""
-              width={0}
-              height={0}
+              w={0}
+              h={0}
               className="w-8 h-8"
             ></Image>
           </Link>
@@ -28,17 +34,17 @@ const LeftBar: React.FC<LeftBarProps> = ({}) => {
             <div key={item.id}>
               <Link
                 href={item.link}
-                className="flex justify-center 3xl:justify-start gap-3 p-3 hover:bg-hover-menu w-fit rounded-full"
+                className={cn('flex justify-center 3xl:justify-start gap-3 p-3 hover:bg-hover-menu w-fit rounded-full', active==item.link && 'bg-hover-btn-black')}
               >
                 <Image
-                  src={`icons/${item.icon}`}
-                  width={26}
-                  height={26}
+                  path={`icons/${item.icon}`}
+                  w={26}
+                  h={26}
                   alt="item.image"
                 ></Image>
                 <p
                   className={cn(
-                    item.id == 1 && "font-bold",
+                    active == item.link && "font-bold",
                     "hidden 3xl:inline"
                   )}
                 >
@@ -58,11 +64,11 @@ const LeftBar: React.FC<LeftBarProps> = ({}) => {
           href={"/post"}
           className="3xl:hidden my-4 w-[50px] h-[50px] hover:bg-hover-post-btn bg-white rounded-full flex justify-center items-center"
         >
-          <Image src="icons/post.svg" alt="" width={24} height={24} />
+          <Image path="icons/post.svg" alt="" w={24} h={24} />
         </Link>
       </div>
       {/* profile */}
-      <AccountMenu/>
+      <AccountMenu />
     </section>
   );
 };

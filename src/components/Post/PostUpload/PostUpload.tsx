@@ -1,4 +1,6 @@
+import { AvatarCustom } from "@/components/Avatar";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import React from "react";
 
@@ -6,20 +8,16 @@ const PostUpload = () => {
   return (
     <section className="h-[116px] w-full px-4 border-b-gray-border border-b flex">
       <div className="pt-3 mr-2">
-        <Image
-          src="/general/avatar.png"
-          alt="avatar"
-          width={0}
-          height={0}
-          className="w-[44px] h-[44px] min-w-[44px] rounded-full"
-        />
+        <AvatarCustom className="w-[44px] h-[44px] min-w-[44px] rounded-full" />
       </div>
       <div className="pt-1 flex-1 flex flex-col gap-2 min-w-0">
-        <input
-          type="text"
-          placeholder="What is happening?!"
-          className="text-[20px] text-text-default py-3 outline-none bg-transparent placeholder:text-text-default"
-        />
+        <div className="h-[120px] py-3">
+          <Input
+            placeholder="What is Happening?!"
+            type="text"
+            className="px-0 border-0 outline-0 placeholder:text-text-small focus-visible:border-0 focus-visible:outline-0 text-[20px] text-text-default py-3 focus-visible:ring-0 bg-transparent"
+          />
+        </div>
         <div className="flex justify-between pb-2 items-center">
           <div className=" flex gap-4">
             <Image

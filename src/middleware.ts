@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from 'next/headers'
 
-const protectedRoutes = ['/home', '/explore', '/jobs', '/messages', '/notifications', '/profile'];
+const protectedRoutes = ['/home', '/explore', '/jobs', '/messages', '/notifications', '/profile','/post'];
 
 export async function middleware(request: NextRequest) {
   const cookieStore = await cookies()
