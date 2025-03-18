@@ -1,10 +1,12 @@
-import { SignupContainer } from '@/containers/Signup'
-import React from 'react'
+import { SignupContainer } from "@/containers/Signup";
+import React, { Suspense } from "react";
 
 function page() {
   return (
-    <SignupContainer/>
-  )
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignupContainer />
+    </Suspense>
+  );
 }
 
-export default page
+export default page;

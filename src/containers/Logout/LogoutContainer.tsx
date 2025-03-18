@@ -1,6 +1,7 @@
 "use client";
 import { authApi } from "@/apis/auth.api";
 import { Button } from "@/components/ui/button";
+import { removeLocalStorage } from "@/ultils";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { destroyCookie } from "nookies";
@@ -15,6 +16,7 @@ const LogoutContainer = () => {
   const handleLogout = async () => {
     await authApi.signOut()
     router.push("/");
+    removeLocalStorage('currentUser')
     destroyCookie(null,'token')
   };
   return (

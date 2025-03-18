@@ -1,12 +1,15 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useStore } from "@/stores";
 import Link from "next/link";
 import React from "react";
 
-interface MainLoginProps{
-  setIsNext: (next:boolean) =>void
+interface MainLoginProps {
+  setIsNext: (next: boolean) => void;
+  setEmail: (email: string) => void;
+  email: string;
 }
-function MainLogin({setIsNext}:MainLoginProps) {
+function MainLogin({ setIsNext, setEmail, email }: MainLoginProps) {
   const { urlPrevious } = useStore();
   const isAuthPage = urlPrevious == "/" ? true : false;
 
@@ -35,14 +38,16 @@ function MainLogin({setIsNext}:MainLoginProps) {
         </p>
       </div>
       <div>
-        <input
+        <Input
+          onChange={(e) => setEmail(e.target.value)}
           type="text"
           placeholder="Phone, email, or usernames..."
-          className="h-[56px] w-full px-2 border-[1px] rounded-md"
+          className="px-2 w-full h-[56px] border-[1px] rounded-md focus-visible:border-gray-border focus-visible:ring-0 border-gray-border"
         />
       </div>
       <div className="flex flex-col gap-4 ">
         <Button
+          disabled={email == "" ? true : false}
           onClick={() => setIsNext(true)}
           variant={"outline"}
           className="rounded-4xl transition duration-[0.2s] bg-white text-black"

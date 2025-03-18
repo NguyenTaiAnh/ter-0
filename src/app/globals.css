@@ -60,6 +60,7 @@
   --color-modal-bg: rgba(91, 112, 131, 0.4);
   --color-hover-btn-black: rgba(239,243,244,0.1);
   --color-hover-black-opacity: #16181C;
+  --color-disable-input: #111214
 }
 
 @theme inline {

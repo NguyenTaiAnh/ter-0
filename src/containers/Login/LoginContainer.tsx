@@ -9,6 +9,7 @@ import { MainLogin } from "../components/Login/MainLogin";
 import { FormLogin } from "../components/Login/FormLogin";
 
 const LoginContainer = () => {
+  const [email, setEmail] = React.useState<string>('')
   const { urlPrevious } = useStore();
   const [isNext, setIsNext] = React.useState<boolean>(false);
 
@@ -59,7 +60,7 @@ const LoginContainer = () => {
         </div>
 
         {/* content */}
-        {isNext ? <FormLogin /> : <MainLogin setIsNext={setIsNext}/>}
+        {isNext ? <FormLogin email={email} /> : <MainLogin email={email} setEmail={setEmail} setIsNext={setIsNext} />}
       </div>
     </section>
   );

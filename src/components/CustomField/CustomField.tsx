@@ -12,8 +12,10 @@ interface CustomFieldProps {
   type: "text" | "email" | "date" | "number" | "password" | "checkbox" | "radio";
   placeholder?:string
   className?:string
+  disabled?:boolean
 }
 const CustomField: React.FC<CustomFieldProps> = ({
+  disabled,
   field,
   form,
   showLabel,
@@ -32,6 +34,7 @@ const CustomField: React.FC<CustomFieldProps> = ({
           {showLabel ?? <Label htmlFor={field}>{label}</Label>}
           <FormControl>
             <CustomInput
+            disabled={disabled}
               type={type}
               id={field}
               value={controllerField.value}

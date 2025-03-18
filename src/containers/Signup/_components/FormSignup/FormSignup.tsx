@@ -14,7 +14,7 @@ import { z } from "zod";
 function FormSignup() {
   const [isShowHide, setIsShowHide] = React.useState<boolean>(false);
   const [isLoad, setIsLoad] = React.useState<boolean>(false);
-  const router = useRouter()
+  const router = useRouter();
   const userSchema = z.object({
     username: z.string().min(2, "Name is too short"),
     email: z.string().email("Email not valid"),
@@ -45,7 +45,7 @@ function FormSignup() {
       await authApi.signUp(values.email, values.password, param);
       setIsLoad(false);
       form.reset();
-      router.push('/home')
+      router.push("/home");
     } catch (error: any) {
       console.log({ error });
       setIsLoad(false);
@@ -101,11 +101,10 @@ function FormSignup() {
               </Button>
             </div>
 
-            <p className="text-[15px] font-bold mb-2">Ngày sinh</p>
+            <p className="text-[15px] font-bold mb-2">Date of birth</p>
             <p className="text-[14px] text-icon-default leading-4">
-              Điều này sẽ không được hiển thị công khai. Xác nhận tuổi của bạn,
-              ngay cả khi tài khoản này dành cho doanh nghiệp, thú cưng hoặc thứ
-              gì khác.
+              This will not be shown publicly. Confirm your age, even if the
+              account is for a business, pet, or something else.
             </p>
             <CustomField
               placeholder="BirthDay"
