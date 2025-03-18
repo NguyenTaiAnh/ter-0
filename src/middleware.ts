@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
   if (protectedRoutes.some(route => pathname.startsWith(route))) {
     // Kiểm tra token session của NextAuth (NextAuth sử dụng cookie tên là __Secure-next-auth.session-token hoặc next-auth.session-token)
     // const token = request.cookies.get('__Secure-next-auth.session-token') || request.cookies.get('next-auth.session-token');
-    const cookies =  cookieStore.get('user')
+    const cookies =  cookieStore.get('token')
     
     console.log("cookies 123: ", cookies)
     // Nếu không có token, chuyển hướng tới trang login

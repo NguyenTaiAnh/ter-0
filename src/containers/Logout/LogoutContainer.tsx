@@ -1,4 +1,5 @@
 "use client";
+import { authApi } from "@/apis/auth.api";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -11,13 +12,10 @@ const LogoutContainer = () => {
   if (!pathname.includes("/logout")) {
     return null;
   }
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await authApi.signOut()
     router.push("/");
-    destroyCookie(null,'user')
-    // const expires = new Date(Date.now() + 1 + 1000 * 60 * 60 * 24 * 365); // 365 days
-    // setCookie(null, "user", JSON.stringify(UserLogin), {
-    //   expires,
-    // });
+    destroyCookie(null,'token')
   };
   return (
     <section className="fixed inset-0 z-50 flex items-center bg-[#242d35] justify-center ">
