@@ -3,8 +3,11 @@ import React from "react";
 import NextImage from "next/image";
 import { uploadPost } from "./_actions";
 import { EditorImageType } from "@/types/editor-image.type";
+import { getLocalStorage } from "@/ultils";
 
 const PostUpload = () => {
+  const currentUser = getLocalStorage('currentUser');
+  console.log({currentUser})
   const [media, setMedia] = React.useState<File | null>(null);
   const [desc, setDesc] = React.useState<string>("");
   const [isEditorOpen, setIsEditorOpen] = React.useState<boolean>(false);
@@ -30,7 +33,7 @@ const PostUpload = () => {
     }
     console.log({ formData: formData.values() });
     try {
-      uploadPost(formData, settings);
+      uploadPost(formData, settings,currentUser);
       setMedia(null);
     } catch (error) {
       console.log({ error });

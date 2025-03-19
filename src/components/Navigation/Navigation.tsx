@@ -5,12 +5,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { cn } from "@/lib/utils";
 import { PostUpload } from "../Post/PostUpload";
 import { PostInfo } from "../Post/PostInfo";
+import { postsApi } from "@/apis/posts.api";
 
 interface NavigationProps {
   tabs: TTabs[];
 }
 const Navigation: React.FC<NavigationProps> = ({ tabs }) => {
   const [state, setState] = React.useState(tabs[0].tag);
+  React.useEffect(()=>{
+    setTimeout(async()=>{
+      const data = await postsApi.getAllPost();
+      console.log({data})
+    })
+  },[])
   return (
     <Tabs className="rounded-0" defaultValue={tabs[0].tag}>
       <TabsList className="bg-black z-[50] sticky top-0 justify-start w-full flex-nowrap no-scrollbar box-border h-[54px] overflow-x-scroll rounded-none p-0 border-b border-b-gray-border">

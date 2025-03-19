@@ -42,5 +42,6 @@ export interface IUser {
   followers: number;
   following: number;
   name:string;
-  birthDay?:string
+  birthDay?:string;
+  userId:string
 }

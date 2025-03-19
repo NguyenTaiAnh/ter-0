@@ -9,7 +9,7 @@ import { MainLogin } from "../components/Login/MainLogin";
 import { FormLogin } from "../components/Login/FormLogin";
 
 const LoginContainer = () => {
-  const [email, setEmail] = React.useState<string>('anhtest@anh.com')
+  const [email, setEmail] = React.useState<string>('')
   const { urlPrevious } = useStore();
   const [isNext, setIsNext] = React.useState<boolean>(false);
 

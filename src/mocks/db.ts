@@ -62,3 +62,17 @@ export const defaultValueUser = {
   privacy_settings: "",
   website_url: "",
 };
+export const defaultValuePost = {
+  hashtags: '',
+  in_reply_to_post_id: null,
+  language: '',
+  like_count: 0,
+  mentions: null,
+  parentId: null,
+  quote_count: 0,
+  quoted_post_id: null,
+  reply_count: 0,
+  retweet_count: 0,
+  update_at: new Date().toString(),
+  created_at: new Date().toString(),
+}
