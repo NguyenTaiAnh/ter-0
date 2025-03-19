@@ -43,7 +43,7 @@ import { ACCOUNT_STATUS } from "@/types/status.type";
 //   //   },
 // };
 
-export const defaultValue = {
+export const defaultValueUser = {
   account_status: ACCOUNT_STATUS.ACTIVE,
   created_at: new Date().toString(),
   display_name: "",
@@ -53,7 +53,8 @@ export const defaultValue = {
   is_verified: true,
   updated_at: new Date().toString(),
   bio: "",
-  image_url: "",
+  avatar_url: "/general/avatar_default,jpg",
+  banner_url:"/general/default-banner,png",
   name: "",
   last_login: new Date().toString(),
   location: "",

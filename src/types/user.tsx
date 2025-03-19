@@ -23,7 +23,8 @@ export interface ICurrentUser {
 
 export interface IUser {
   email: string;
-  image_url?: string;
+  avatar_url?: string;
+  banner_url?: string;
   is_premium: boolean;
   is_verified: boolean;
   last_login?: string;

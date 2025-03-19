@@ -10,9 +10,11 @@ import { usePathname } from "next/navigation";
 
 interface LeftBarProps {}
 const LeftBar: React.FC<LeftBarProps> = ({}) => {
-  const [active, setActive] = React.useState<string>('/home')
+  const [active, setActive] = React.useState<string>("/home");
   const pathName = usePathname();
-  React.useEffect(()=>{setActive(pathName)},[pathName])
+  React.useEffect(() => {
+    setActive(pathName);
+  }, [pathName]);
   return (
     <section className="sticky top-0 px-2 h-screen flex flex-col justify-between pt-2 pb-8 w-fit sm:w-[88px] 3xl:w-[259px] left-0">
       <div className="flex flex-col items-center 3xl:items-start">
@@ -34,14 +36,19 @@ const LeftBar: React.FC<LeftBarProps> = ({}) => {
             <div key={item.id}>
               <Link
                 href={item.link}
-                className={cn('flex justify-center 3xl:justify-start gap-3 p-3 hover:bg-hover-menu w-fit rounded-full', active==item.link && 'bg-hover-btn-black')}
+                className={cn(
+                  "flex justify-center 3xl:justify-start gap-3 p-3 hover:bg-hover-menu w-fit rounded-full"
+                )}
               >
-                <Image
-                  path={`icons/${item.icon}`}
-                  w={26}
-                  h={26}
-                  alt="item.image"
-                ></Image>
+                <div className={cn(
+                    active == item.link && "border-b-2 border-gray-border",'flex justify-center gap-3'
+                  )}>
+                  <Image
+                    path={`icons/${item.icon}`}
+                    w={26}
+                    h={26}
+                    alt="item.image"
+                  ></Image>
                 <p
                   className={cn(
                     active == item.link && "font-bold",
@@ -50,6 +57,7 @@ const LeftBar: React.FC<LeftBarProps> = ({}) => {
                 >
                   {item.name}
                 </p>
+                </div>
               </Link>
             </div>
           ))}

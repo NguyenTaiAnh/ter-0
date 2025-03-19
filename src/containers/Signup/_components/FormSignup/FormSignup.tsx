@@ -2,7 +2,7 @@ import { authApi } from "@/apis/auth.api";
 import { CustomField } from "@/components/CustomField";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { defaultValue } from "@/mocks/db";
+import { defaultValueUser } from "@/mocks/db";
 import { IUser } from "@/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Loader } from "lucide-react";
@@ -40,7 +40,7 @@ function FormSignup() {
         birthDay: values.birthDate
           ? values.birthDate?.toString()
           : new Date().toString(),
-        ...defaultValue,
+        ...defaultValueUser,
       };
       await authApi.signUp(values.email, values.password, param);
       setIsLoad(false);

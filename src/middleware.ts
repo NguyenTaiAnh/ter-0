@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
   }
-  console.log("cookies", cookieStore.get("user"));
+  console.log("cookies", cookieStore.get("token"));
   // console.log({cookies})
   // how to use zustand in middleware
 

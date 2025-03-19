@@ -2,6 +2,7 @@ import { authApi } from "@/apis/auth.api";
 import { CustomField } from "@/components/CustomField";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { authStore } from "@/stores/auth.store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Loader } from "lucide-react";
 import Link from "next/link";
@@ -14,6 +15,7 @@ interface FormLoginProps {
   email: string;
 }
 function FormLogin({ email }: FormLoginProps) {
+    const {setUser} = authStore()
   const [isShowHide, setIsShowHide] = React.useState<boolean>(false);
   const [isLoad, setIsLoad] = React.useState<boolean>(false);
   const router = useRouter();
@@ -32,10 +34,12 @@ function FormLogin({ email }: FormLoginProps) {
     console.log(values);
     setIsLoad(true);
     try {
-      const user: any = await authApi.signIn(values.email, values.password);
+      const res: any = await authApi.signIn(values.email, values.password);
+      console.log({res})
+      const user = await authApi.getCurrentUser(res);
       // Lấy idToken từ người dùng đã đăng nhập
       console.log({ user });
-
+      setUser({...user,userId:res.uid})
       setIsLoad(false);
       router.push("/home");
     } catch (error: any) {

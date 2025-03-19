@@ -1,7 +1,6 @@
 import { auth } from "@/lib/firebase";
 import { FirestoreService } from "@/stores/firebase/firestore";
-import { IUser } from "@/types/user";
-import { setLocalStorage } from "@/ultils";
+import { ICurrentUser, IUser } from "@/types/user";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -29,13 +28,14 @@ export const authApi = {
       email,
       password
     );
-    const user = await FirestoreService.getUser(userCredential.user.uid)
-    setLocalStorage('currentUser',user)
+    // const user =  await FirestoreService.getUser(userCredential.user.uid)
+    // setLocalStorage('currentUser',{
+    //   ...user,userId:userCredential.user.uid
+    // })
     const expires = new Date(Date.now() + 1 + 1000 * 60 * 60 * 24 * 365); // 365 days
     setCookie(null, "token", JSON.stringify(userCredential.user?.accessToken), {
       expires,
     });
-    // setCookie(null,'token',userCredential.user)
     return userCredential.user;
   },
 
@@ -43,7 +43,11 @@ export const authApi = {
     await signOut(auth);
   },
 
-  getCurrentUser(): User | null {
+  getAuthUser(): User | null {
     return auth.currentUser;
   },
+  async getCurrentUser(userCredential:any):Promise<ICurrentUser | any> {
+    const user =  await FirestoreService.getUser(userCredential.uid);
+    return user
+  }
 };
