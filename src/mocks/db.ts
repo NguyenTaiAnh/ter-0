@@ -1,4 +1,5 @@
 import { ACCOUNT_STATUS } from "@/types/status.type";
+import { serverTimestamp } from "firebase/firestore";
 // import { ICurrentUser } from "@/types/user";
 
 // export const UserLogin: ICurrentUser = {
@@ -42,30 +43,34 @@ import { ACCOUNT_STATUS } from "@/types/status.type";
 //   //     },
 //   //   },
 // };
+const updateAt = serverTimestamp();
+const createdAt = serverTimestamp();
 
-export const defaultValueUser = {
+const defaultValueUser = {
   account_status: ACCOUNT_STATUS.ACTIVE,
-  created_at: new Date().toString(),
+  // createdAt: new Date().toString(),
   display_name: "",
   followers: 0,
   following: 0,
   is_premium: false,
   is_verified: true,
-  updated_at: new Date().toString(),
+  // updated_at: new Date().toString(),
   bio: "",
-  avatar_url: "/general/avatar_default,jpg",
-  banner_url:"/general/default-banner,png",
+  avatar_url: "/general/avatar_default.jpg",
+  banner_url: "/general/default-banner.png",
   name: "",
   last_login: new Date().toString(),
   location: "",
   phone: null,
   privacy_settings: "",
   website_url: "",
+  updateAt: updateAt,
+  createdAt: createdAt,
 };
-export const defaultValuePost = {
-  hashtags: '',
+const defaultValuePost = {
+  hashtags: "",
   in_reply_to_post_id: null,
-  language: '',
+  language: "",
   like_count: 0,
   mentions: null,
   parentId: null,
@@ -73,6 +78,8 @@ export const defaultValuePost = {
   quoted_post_id: null,
   reply_count: 0,
   retweet_count: 0,
-  update_at: new Date().toString(),
-  created_at: new Date().toString(),
-}
+  updateAt: updateAt,
+  createdAt: createdAt,
+};
+
+export { createdAt, updateAt, defaultValueUser, defaultValuePost };

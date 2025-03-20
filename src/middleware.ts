@@ -21,16 +21,16 @@ export async function middleware(request: NextRequest) {
     // const token = request.cookies.get('__Secure-next-auth.session-token') || request.cookies.get('next-auth.session-token');
     const cookies =  cookieStore.get('token')
     
-    console.log("cookies 123: ", cookies)
+    // console.log("cookies 123: ", cookies)
     // Nếu không có token, chuyển hướng tới trang login
     if (!cookies || cookies.value =='') {
-      console.log("vo day")
+      // console.log("vo day")
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = '/';
       return NextResponse.redirect(loginUrl);
     }
   }
-  console.log("cookies", cookieStore.get("token"));
+  // console.log("cookies", cookieStore.get("token"));
   // console.log({cookies})
   // how to use zustand in middleware
 

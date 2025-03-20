@@ -1,13 +1,24 @@
 import { Image } from "@/components/Image";
 import React from "react";
 import NextImage from "next/image";
-import { uploadPost } from "./_actions";
+import { uploadImage } from "./_actions";
 import { EditorImageType } from "@/types/editor-image.type";
-import { getLocalStorage } from "@/ultils";
+import { Loader } from "lucide-react";
+// import { cmtApi } from "@/apis/cmt.api";
+// import { IRequestComment, IRequestPost } from "@/types/post.type";
+import {  defaultValuePost } from "@/mocks/db";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { postsApi } from "@/apis/posts.api";
+import { QueryKeys } from "@/constants/queryKeys.const";
+import { IRequestPost } from "@/types/post.type";
 
-const PostUpload = () => {
-  const currentUser = getLocalStorage('currentUser');
-  console.log({currentUser})
+interface PostUploadProp{
+  currentUser:any
+}
+const PostUpload:React.FC<PostUploadProp> = ({currentUser}) => {
+  console.log({ currentUser });
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [typeMedia,setTypeMedia] = React.useState<string>('');
   const [media, setMedia] = React.useState<File | null>(null);
   const [desc, setDesc] = React.useState<string>("");
   const [isEditorOpen, setIsEditorOpen] = React.useState<boolean>(false);
@@ -21,28 +32,64 @@ const PostUpload = () => {
   const handleMediaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log({ e: e.target.files });
     if (e.target.files && e.target.files[0]) {
+      setTypeMedia(e.target.files[0].type)
       setMedia(e.target.files[0]);
     }
   };
   const previewURL = media ? URL.createObjectURL(media) : null;
-
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: (requestPost:IRequestPost) => postsApi.create(requestPost),
+    onSuccess:(res)=>{
+      console.log({dataPostCreate:res})
+      queryClient.refetchQueries({
+        queryKey:[QueryKeys.POSTS],
+        type:'active'
+      })
+    }
+  });
   const handleUpload = async (formData: FormData) => {
     if (desc == "" && !media) return;
-    for (const value of formData.values()) {
-      console.log(value);
-    }
-    console.log({ formData: formData.values() });
+    setIsLoading(true)
+    // for (const value of formData.values()) {
+    //   console.log(value);
+    // }
+    // console.log({ formData: formData.values() });
     try {
-      uploadPost(formData, settings,currentUser);
+      const media_url = await uploadImage(formData, settings);
+      console.log({ media_url });
+
+      const requestPost: IRequestPost = {
+        content: desc,
+        media_url: media_url?.toString() || '',
+        user_id: currentUser.userId,
+        media_type: typeMedia,
+        ...defaultValuePost,
+      };
+      console.log({ requestPost });
+      mutate(requestPost)
+      // console.log({ postId });
+      // const param: IRequestComment = {
+      //   user_id: currentUser.userId,
+      //   content: "test check 1 2",
+      //   createdAt: createdAt.toString(),
+      //   updateAt: updateAt.toString(),
+      // };
+      // const resCmt = await cmtApi.createCmt(postId?.toString() || "", param);
+      // console.log({resCmt})
       setMedia(null);
+      setIsLoading(false);
     } catch (error) {
       console.log({ error });
       setMedia(null);
+      setIsLoading(false);
+    }finally{
+      setIsLoading(false)
     }
   };
   return (
     <form
-      className="p-4 flex gap-4"
+      className="p-4 flex gap-4 border-b-[1px] border-gray-border"
       action={(formData) => handleUpload(formData)}
     >
       {/* AVATAR */}
@@ -163,10 +210,10 @@ const PostUpload = () => {
             />
           </div>
           <button
-            disabled={desc == "" && !media}
-            className="disabled:bg-gray-border bg-white text-black font-bold rounded-full py-2 px-4"
+            disabled={ desc == "" && !media || isLoading}
+            className="disabled:bg-gray-border flex bg-white text-black font-bold rounded-full py-2 px-4"
           >
-            Post
+            Post {isLoading && <Loader className="animate-spin" />}
           </button>
         </div>
       </div>
@@ -174,4 +221,4 @@ const PostUpload = () => {
   );
 };
 
-export default PostUpload;
+export default React.memo(PostUpload);

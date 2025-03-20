@@ -8,12 +8,19 @@ import {
   updateDoc,
   getDoc,
   getDocs,
+  query,
+  orderBy,
+  where,
 } from "firebase/firestore";
 
 export const postsApi = {
   async getAllPost() {
-    const post = await getDocs(collection(dbStore, "posts"));
-    return post.docs.map(doc => ({...doc.data(),postId:doc.id})) ?? [];
+    const q = query(collection(dbStore, "posts"), orderBy("createdAt", "desc"));
+
+    // const post = await getDocs(q);
+
+    const post = await getDocs(q);
+    return post.docs.map((doc) => ({ ...doc.data(), postId: doc.id })) ?? [];
   },
   async getPost(id: string) {
     try {
@@ -50,5 +57,26 @@ export const postsApi = {
       console.error("Error adding document: ", error);
       throw error;
     }
+  },
+  async getPostByUserId(userId: string) {
+    try {
+      const q = query(
+        collection(dbStore, "posts"),
+        where("user_id", "==", userId)
+      );
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs.map((doc) => ({
+        postId: doc.id,
+        ...doc.data(),
+      }));
+    } catch (error) {
+      console.error("Error getall document by user: ", error);
+      throw error;
+    }
+  },
+  async getUser(userId: string) {
+    const docRef = doc(dbStore, "users", userId);
+    const docSnap = await getDoc(docRef);
+    return docSnap.exists() ? (docSnap.data() as any) : null;
   },
 };

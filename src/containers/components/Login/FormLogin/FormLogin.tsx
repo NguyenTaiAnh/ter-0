@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Loader } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { setCookie } from "nookies";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -40,6 +41,7 @@ function FormLogin({ email }: FormLoginProps) {
       // Lấy idToken từ người dùng đã đăng nhập
       console.log({ user });
       setUser({...user,userId:res.uid})
+      setCookie(null,"currentUser", JSON.stringify({...user,userId:res.uid}))
       setIsLoad(false);
       router.push("/home");
     } catch (error: any) {

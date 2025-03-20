@@ -32,12 +32,12 @@ export interface IUser {
   password: string;
   phone?: number | null;
   privacy_settings?: any;
-  updated_at: string;
+  updatedAt: string;
   username: string;
   website_url?: string;
   account_status: string;
   bio?: string;
-  created_at: string;
+  createdAt: string;
   display_name: string;
   followers: number;
   following: number;

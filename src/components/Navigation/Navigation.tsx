@@ -5,19 +5,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { cn } from "@/lib/utils";
 import { PostUpload } from "../Post/PostUpload";
 import { PostInfo } from "../Post/PostInfo";
-import { postsApi } from "@/apis/posts.api";
+import { Loader } from "lucide-react";
+import { getLocalStorage } from "@/ultils";
 
 interface NavigationProps {
   tabs: TTabs[];
+  posts?: any[];
+  isLoading?: boolean;
 }
-const Navigation: React.FC<NavigationProps> = ({ tabs }) => {
+const Navigation: React.FC<NavigationProps> = ({ tabs, posts, isLoading }) => {
   const [state, setState] = React.useState(tabs[0].tag);
-  React.useEffect(()=>{
-    setTimeout(async()=>{
-      const data = await postsApi.getAllPost();
-      console.log({data})
-    })
-  },[])
+  const currentUser = getLocalStorage("currentUser");
   return (
     <Tabs className="rounded-0" defaultValue={tabs[0].tag}>
       <TabsList className="bg-black z-[50] sticky top-0 justify-start w-full flex-nowrap no-scrollbar box-border h-[54px] overflow-x-scroll rounded-none p-0 border-b border-b-gray-border">
@@ -36,11 +34,13 @@ const Navigation: React.FC<NavigationProps> = ({ tabs }) => {
       </TabsList>
       {tabs.map((tab) => (
         <TabsContent key={tab.id} value={tab.tag} className="w-full">
-          {tab.id == 1 && <PostUpload />}
-          <PostInfo />
-          <PostInfo />
-          <PostInfo />
-          <PostInfo />
+          {tab.id == 1 && <PostUpload currentUser={currentUser} />}
+          {!posts && isLoading && (
+            <Loader className="animate-spin flex flex-row justify-center w-full" />
+          )}
+          {posts &&
+            posts.length > 0 &&
+            posts.map((i) => <PostInfo post={i} key={i.postId} currentUser={currentUser}/>)}
         </TabsContent>
       ))}
     </Tabs>

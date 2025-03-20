@@ -1,80 +1,64 @@
 "use server";
 
-import { postsApi } from "@/apis/posts.api";
-import { defaultValuePost } from "@/mocks/db";
 import { EditorImageType } from "@/types/editor-image.type";
-import { IRequestPost } from "@/types/post.type";
-import { IUser } from "@/types/user";
 import { imagekit } from "@/ultils/imagekit";
 
-export const uploadPost = async (
+export const uploadImage = async (
   formData: FormData,
   settings: { type: EditorImageType; sensitive: boolean },
-  currentUser:IUser
 ) => {
-  const file = formData.get("file") as File;
-  const desc = formData.get("desc") as string;
-
-  console.log({ desc });
-  console.log({ file });
-  const bytes = await file.arrayBuffer();
-  console.log({ bytes });
-  const buffer = Buffer.from(bytes);
-
-  const transformation = `w-600, ${
-    settings.type === "square"
-      ? "ar-1-1"
-      : settings.type === "wide"
-      ? "ar-16-9"
-      : ""
-  }`;
-  console.log({ file });
-  console.log(
-    "file:",
-    file.name,
-    buffer,
-    transformation,
-    settings,
-    settings.sensitive
-  );
-  imagekit.upload(
-    {
-      file: buffer,
-      fileName: file.name,
-      folder: "/posts",
-      ...(file.type.includes("image") && {
-        transformation: {
-          pre: transformation,
-        },
-      }),
-      //   customMetadata: {
-      //     sensitive: settings.sensitive,
-      //   },
-    },
-    async function (error: any, result: any) {
-      console.log("test: ", error);
-      if (error) console.log({ error });
-      else {
-        console.log({result})
-        const param: IRequestPost = {
-          content: desc,
-          media_url: result.filePath,
-          ...defaultValuePost,
-          userId: currentUser.userId,
-        };
-        const res = await postsApi.create(param);
-        console.log({ res });
-      }
+  return new Promise(async(resolve, reject) => {
+    const file = formData.get("file") as File;
+    console.log("1")
+    if(file.name === 'undefined') {
+      resolve('')
+      return;
     }
-  );
+      console.log("2")
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
 
-  // const param = {
-
-  // }
-  // const res = postsApi.create({
-  //     uid: Date.now(),
-  //     content: desc,
-  //     media: ''
-  // })
-  // console.log({res})
+    const transformation = `w-600, ${
+      settings.type === "square"
+        ? "ar-1-1"
+        : settings.type === "wide"
+        ? "ar-16-9"
+        : ""
+    }`;
+    console.log({ file });
+    console.log(
+      "file:",
+      file.name,
+      buffer,
+      transformation,
+      settings,
+      settings.sensitive
+    );
+    imagekit.upload(
+      {
+        file: buffer,
+        fileName: file.name,
+        folder: "/posts",
+        ...(file.type.includes("image") && {
+          transformation: {
+            pre: transformation,
+          },
+        }),
+        //   customMetadata: {
+        //     sensitive: settings.sensitive,
+        //   },
+      },
+      async function (error: any, result: any) {
+        console.log("test: ", error);
+        if (error) {
+            console.log({ error })
+            reject(error)
+        }
+        else {
+          console.log({ result });
+          resolve( result.filePath)
+        }
+      }
+    );
+  });
 };

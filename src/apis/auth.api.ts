@@ -48,6 +48,7 @@ export const authApi = {
   },
   async getCurrentUser(userCredential:any):Promise<ICurrentUser | any> {
     const user =  await FirestoreService.getUser(userCredential.uid);
+    console.log({usertest:user})
     return user
   }
 };
