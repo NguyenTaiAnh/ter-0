@@ -25,6 +25,7 @@ export const uploadImage = async (
         ? "ar-16-9"
         : ""
     }`;
+    console.log({settings})
     console.log({ file });
     console.log(
       "file:",
@@ -44,9 +45,9 @@ export const uploadImage = async (
             pre: transformation,
           },
         }),
-        //   customMetadata: {
-        //     sensitive: settings.sensitive,
-        //   },
+          customMetadata: {
+            sensitive: settings.sensitive,
+          },
       },
       async function (error: any, result: any) {
         console.log("test: ", error);

@@ -43,7 +43,7 @@ import { serverTimestamp } from "firebase/firestore";
 //   //     },
 //   //   },
 // };
-const updateAt = serverTimestamp();
+const updatedAt = serverTimestamp();
 const createdAt = serverTimestamp();
 
 const defaultValueUser = {
@@ -64,7 +64,7 @@ const defaultValueUser = {
   phone: null,
   privacy_settings: "",
   website_url: "",
-  updateAt: updateAt,
+  updatedAt: updatedAt,
   createdAt: createdAt,
 };
 const defaultValuePost = {
@@ -78,8 +78,8 @@ const defaultValuePost = {
   quoted_post_id: null,
   reply_count: 0,
   retweet_count: 0,
-  updateAt: updateAt,
+  updatedAt: updatedAt,
   createdAt: createdAt,
 };
 
-export { createdAt, updateAt, defaultValueUser, defaultValuePost };
+export { createdAt, updatedAt, defaultValueUser, defaultValuePost };

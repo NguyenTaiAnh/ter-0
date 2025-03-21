@@ -53,10 +53,10 @@ export const menuList = [
     link: "/username",
     icon: "profile.svg",
   },
-  {
-    id: 10,
-    name: "More",
-    link: "/more",
-    icon: "more.svg",
-  },
+  // {
+  //   id: 10,
+  //   name: "More",
+  //   link: "/more",
+  //   icon: "more.svg",
+  // },
 ];

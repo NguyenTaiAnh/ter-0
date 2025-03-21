@@ -4,7 +4,6 @@ import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 
 type UseGetUserByIdProps = Omit<UseQueryOptions<any>, "queryKey" | "queryFn">;
 const useGetUserById = (userId: string, options?: UseGetUserByIdProps) => {
-    console.log({userId})
   const queryResult = useQuery({
     queryKey: [QueryKeys.USER_ID, userId],
     queryFn: () => postsApi.getUser(userId),

@@ -38,3 +38,9 @@ export async function middleware(request: NextRequest) {
   console.log("url", url);
   return NextResponse.next();
 }
+
+export async function getCurrentUserSever(){
+  const cookieStore = await cookies()
+  const data= JSON.parse(cookieStore.get('currentUser')?.value || '')
+  return data
+}

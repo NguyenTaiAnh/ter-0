@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { postsApi } from "@/apis/posts.api";
 import { QueryKeys } from "@/constants/queryKeys.const";
-import { urlEndpoint } from "@/app/api/config";
 import { useGetUserById } from "@/hooks";
+import { AvatarCustom } from "@/components/Avatar";
+// import { Video } from "@/components/Video";
+import { urlEndpoint } from "@/app/api/config";
 
 interface PostInfoProp {
   post: any;
@@ -21,7 +23,6 @@ interface PostInfoProp {
 const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser }) => {
   const { data: user } = useGetUserById(post?.user_id);
   const queryClient = useQueryClient();
-  console.log({ timpost: post?.testtimeAt?.toDate() });
   const { mutateAsync } = useMutation({
     mutationFn: () => postsApi.delete(post.postId),
     onSuccess: async () => {
@@ -46,13 +47,7 @@ const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser }) => {
   return (
     <section className="pt-3 px-4 flex pb-3 border-b-gray-border border-b">
       <div className="mr-2">
-        <Image
-          path={user?.avatar_url}
-          alt="avatar"
-          w={0}
-          h={0}
-          className="w-[44px] h-[44px] rounded-full min-w-[44px]"
-        />
+        <AvatarCustom className="w-[44px] h-[44px] rounded-full min-w-[44px]" path={currentUser?.avatar_url} username={currentUser.username.slice(0,2)}></AvatarCustom>
       </div>
       <div className="flex-1 text-[15px] ">
         <div className="info flex gap-1 justify-between ">
@@ -84,11 +79,19 @@ const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser }) => {
                 alt="media"
                 w={0}
                 h={0}
-                className="w-full"
+                // className="w-full"
+                className={`w-full ${
+                  post?.shape === "original"
+                    ? "h-full object-contain"
+                    : post?.shape === "square"
+                    ? "aspect-square object-cover"
+                    : "aspect-video object-cover"
+                }`}
               />
             )}
             {post?.media_type.includes("video") && (
               <video src={urlEndpoint + post?.media_url} controls />
+              // <Video path={ post?.media_url} />
             )}
           </div>
         </div>

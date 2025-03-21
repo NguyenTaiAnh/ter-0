@@ -2,7 +2,7 @@ import HomeContainer from "@/containers/Home/HomeContainer";
 
 import React from "react";
 
-async function page() {
+function page() {
   return <HomeContainer />;
 }
 

@@ -13,6 +13,7 @@ interface NavigationProps {
   posts?: any[];
   isLoading?: boolean;
 }
+
 const Navigation: React.FC<NavigationProps> = ({ tabs, posts, isLoading }) => {
   const [state, setState] = React.useState(tabs[0].tag);
   const currentUser = getLocalStorage("currentUser");
@@ -34,7 +35,7 @@ const Navigation: React.FC<NavigationProps> = ({ tabs, posts, isLoading }) => {
       </TabsList>
       {tabs.map((tab) => (
         <TabsContent key={tab.id} value={tab.tag} className="w-full">
-          {tab.id == 1 && <PostUpload currentUser={currentUser} />}
+          {tab.id == 1 && <PostUpload  />}
           {!posts && isLoading && (
             <Loader className="animate-spin flex flex-row justify-center w-full" />
           )}

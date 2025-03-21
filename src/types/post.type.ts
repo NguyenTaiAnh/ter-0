@@ -13,15 +13,16 @@ export interface IRequestPost {
   quoted_post_id?: string | null;
   reply_count: number;
   retweet_count: number;
-  updateAt: any;
+  updatedAt: any;
   createdAt: any;
+  shape:string
 }
 
 export interface IRequestComment {
   user_id: string;
   content: string;
   createdAt: string;
-  updateAt: string;
+  updatedAt: string;
 }
 
 export interface IRequestLike {

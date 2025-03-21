@@ -1,15 +1,17 @@
 "use client";
 import { menuList } from "@/constants/menuList.const";
-// import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { cn } from "@/lib/utils";
 import { AccountMenu } from "./_components/AccountMenu";
 import { Image } from "../Image";
 import { usePathname } from "next/navigation";
+import { ActionMore } from "./_components/ActionMore";
+import { MenuList } from "./_components/MenuList";
 
-interface LeftBarProps {}
-const LeftBar: React.FC<LeftBarProps> = ({}) => {
+interface LeftBarProps {
+  currentUser: any
+}
+const LeftBar: React.FC<LeftBarProps> = ({currentUser}) => {
   const [active, setActive] = React.useState<string>("/home");
   const pathName = usePathname();
   React.useEffect(() => {
@@ -34,33 +36,10 @@ const LeftBar: React.FC<LeftBarProps> = ({}) => {
         <div className="flex flex-col text-[20px]">
           {menuList.map((item) => (
             <div key={item.id}>
-              <Link
-                href={item.link}
-                className={cn(
-                  "flex justify-center 3xl:justify-start gap-3 p-3 hover:bg-hover-menu w-fit rounded-full"
-                )}
-              >
-                <div className={cn(
-                    active == item.link && "border-b-2 border-gray-border",'flex justify-center gap-3'
-                  )}>
-                  <Image
-                    path={`icons/${item.icon}`}
-                    w={26}
-                    h={26}
-                    alt="item.image"
-                  ></Image>
-                <p
-                  className={cn(
-                    active == item.link && "font-bold",
-                    "hidden 3xl:inline"
-                  )}
-                >
-                  {item.name}
-                </p>
-                </div>
-              </Link>
+              <MenuList item={item} active={active} currentUser={currentUser}/>
             </div>
           ))}
+          <ActionMore/>
         </div>
         <Link
           className="hidden 3xl:w-[233px] 3xl:my-4 hover:bg-hover-post-btn text-[17px] font-bold 3xl:flex justify-center items-center rounded-3xl h-[52px] px-8 bg-white text-black"
@@ -76,7 +55,7 @@ const LeftBar: React.FC<LeftBarProps> = ({}) => {
         </Link>
       </div>
       {/* profile */}
-      <AccountMenu />
+      <AccountMenu currentUser={currentUser} />
     </section>
   );
 };

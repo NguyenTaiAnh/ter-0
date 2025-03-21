@@ -1,11 +1,10 @@
-// app/components/QueryProvider/route.ts
 'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { ReactNode } from 'react';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-// Tạo query client với các cấu hình mặc định
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -19,6 +18,7 @@ export function QueryProvider({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

@@ -7,12 +7,12 @@ import React from "react";
 
 function ProfileTabs() {
   const currentUser = getLocalStorage("currentUser");
-  console.log({ currentUser });
   const {
     data: posts,
     isLoading,
     isFetching,
   } = usePostByUserId(currentUser?.userId);
+  // console.log({ currentUser,posts });
   return (
     <div>
       <Navigation

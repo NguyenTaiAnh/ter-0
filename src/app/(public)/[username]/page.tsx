@@ -1,10 +1,8 @@
-import { ProfileContainer } from '@/containers/Profile'
-import React from 'react'
+import { ProfileContainer } from "@/containers/Profile";
+import React from "react";
 
 function page() {
-  return (
-  <ProfileContainer/>
-  )
+  return <ProfileContainer />;
 }
 
-export default page
+export default page;

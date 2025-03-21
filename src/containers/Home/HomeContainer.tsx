@@ -4,6 +4,7 @@ import { tabsHome } from "@/constants/tabs.const";
 import React from "react";
 // import {GET } from '@/app/api/posts/route'
 import { usePost } from "@/hooks";
+import { FlashScreen } from "@/components/FlashScreen";
 // export async function GET_POSTS() {
 //   try {
 //     const url = new URL('/api/posts', process.env.NEXT_PUBLIC_URL_API);
@@ -29,6 +30,7 @@ const HomeContainer = () => {
   // const response = await GET_POSTS();
   // const posts = await response.json();
   const { data: posts, isLoading, isFetching } = usePost();
+  if(isLoading) return <FlashScreen/>
   return (
     <section>
       <Navigation

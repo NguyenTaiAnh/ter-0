@@ -41,7 +41,7 @@ function FormLogin({ email }: FormLoginProps) {
       // Lấy idToken từ người dùng đã đăng nhập
       console.log({ user });
       setUser({...user,userId:res.uid})
-      setCookie(null,"currentUser", JSON.stringify({...user,userId:res.uid}))
+      setCookie({res:{key:'abc'}},"currentUser", JSON.stringify({...user,userId:res.uid}))
       setIsLoad(false);
       router.push("/home");
     } catch (error: any) {

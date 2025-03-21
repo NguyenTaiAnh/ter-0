@@ -26,6 +26,7 @@ const Image: React.FC<ImageProps> =({w,h, alt,path,className,tr})=> {
         width:w,
         height:h
       }}
+      lqip={{active:true, blur:20}}
       className={className}
     />
   );
