@@ -4,12 +4,13 @@ import { EditorImageType } from "@/types/editor-image.type";
 import { imagekit } from "@/ultils/imagekit";
 
 export const uploadImage = async (
-  formData: FormData,
+  // formData: FormData,
+  file: File,
   settings: { type: EditorImageType; sensitive: boolean },
 ) => {
   return new Promise(async(resolve, reject) => {
-    const file = formData.get("file") as File;
-    console.log("1")
+    // const file = formData.get("file") as File;
+    // console.log("1",file)
     if(file.name === 'undefined') {
       resolve('')
       return;

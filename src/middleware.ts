@@ -8,6 +8,10 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
   if (pathname.startsWith('/login') || pathname.startsWith('/signup')) {
+    const cookies =  cookieStore.get('user')
+
+    console.log("cookies 123: ", cookies)
+
     return NextResponse.next();
   }
 
@@ -21,7 +25,7 @@ export async function middleware(request: NextRequest) {
     // const token = request.cookies.get('__Secure-next-auth.session-token') || request.cookies.get('next-auth.session-token');
     const cookies =  cookieStore.get('token')
     
-    // console.log("cookies 123: ", cookies)
+    console.log("cookies 123: ", cookies)
     // Nếu không có token, chuyển hướng tới trang login
     if (!cookies || cookies.value =='') {
       // console.log("vo day")
