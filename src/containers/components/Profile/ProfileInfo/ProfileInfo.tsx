@@ -1,6 +1,6 @@
 import { AvatarCustom } from "@/components/Avatar";
-import { Button } from "@/components/ui/button";
 import { BriefcaseBusiness, CalendarDays } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 interface PostInfoProps{
@@ -22,9 +22,12 @@ interface PostInfoProps{
         <div className="">
           <AvatarCustom path={currentUser?.avatar_url} username={currentUser.username.slice(0,2)} className="w-[133px] h-[133px] absolute inset-0 -top-full"/>
         </div>
-        <Button className="bg-black border-gray-border border-[1px] font-bold text-[15px] text-text-default">
+        {/* <Button className="bg-black border-gray-border border-[1px] font-bold text-[15px] text-text-default">
           Edit profile
-        </Button>
+        </Button> */}
+        <Link href={'/settings/profile'} className="bg-black cursor-pointer h-fit px-4 py-2 hover:bg-hover-btn-black rounded-4xl border-gray-border border-[1px] font-bold text-[15px] text-text-default">
+          Edit profile
+        </Link>
       </div>
 
       {/* username */}

@@ -9,11 +9,26 @@ import { usePostUploadLogic } from "@/hooks/usePostUploadLogic";
 import { PostAction } from "../PostAction";
 import TextareaAutosize from "react-textarea-autosize";
 import { IUser } from "@/types/user";
+import { useParams } from "next/navigation";
+import { UseGetPostDetail } from "@/hooks";
 
-interface PostUploadProp {
+interface PostUploadModalProp {
   currentUser: IUser;
 }
-const PostUpload: React.FC<PostUploadProp> = ({ currentUser }) => {
+const PostUploadModal: React.FC<PostUploadModalProp> = ({ currentUser }) => {
+  const param = useParams();
+  const { data, isLoading: isLoadingPost } = UseGetPostDetail(
+    param?.id?.toString() || ""
+  );
+  console.log({ data,isLoadingPost });
+  // const postDetail: any = React.useMemo(
+  //   () => ({ ...data, postId: param.id?.toString() || "" }),
+  //   [data]
+  // );
+  let postDetail:any
+  if(data){
+    postDetail= { ...data, postId: param.id?.toString() || "" }
+  }else postDetail = null
   const {
     isLoading,
     media,
@@ -27,12 +42,30 @@ const PostUpload: React.FC<PostUploadProp> = ({ currentUser }) => {
     handleSubmit,
     onSubmit,
     register,
+    setTypeMedia,
+    setValue,
     watchingDesc,
-  } = usePostUploadLogic();
+  } = usePostUploadLogic(postDetail);
+
+  React.useEffect(() => {
+    if (data) {
+      setTypeMedia(data?.media_type || '');
+      setValue("desc", data.content);
+      setSettings({ type: data?.shape, sensitive: false });
+      fetch(process.env.NEXT_PUBLIC_URL_ENDPOINT + data.media_url)
+        .then((res) => res.blob())
+        .then((myBlob) => {
+          const myFile = new File([myBlob], "image.jpeg", {
+            type: myBlob.type,
+          });
+          setMedia(myFile);
+        });
+    }
+  }, [data]);
 
   return (
     <form
-      className="p-4 flex gap-4 border-b-[1px] border-gray-border"
+      className="p-4 flex gap-4 max-h-[80vh]"
       onSubmit={handleSubmit(onSubmit)}
     >
       {/* AVATAR */}
@@ -44,7 +77,7 @@ const PostUpload: React.FC<PostUploadProp> = ({ currentUser }) => {
         />
       </div>
       {/* OTHERS */}
-      <div className="flex-1 flex flex-col gap-4">
+      <div className="flex-1 flex flex-col gap-4 max-h-[80vh]">
         {/* <input
           disabled={isLoading}
           // value={desc}
@@ -100,7 +133,7 @@ const PostUpload: React.FC<PostUploadProp> = ({ currentUser }) => {
         )}
         {media?.type.includes("video") && previewURL && (
           <div className="relative">
-            <video src={previewURL} controls />
+            <video src={previewURL} controls className="max-h-[50vh]" />
             <Button
               type="button"
               disabled={isLoading}
@@ -123,7 +156,7 @@ const PostUpload: React.FC<PostUploadProp> = ({ currentUser }) => {
           <PostAction
             handleMediaChange={handleMediaChange}
             isLoading={isLoading}
-            nameIdFIle="file"
+            nameIdFIle="modal"
             register={register}
           />
           <button
@@ -138,4 +171,4 @@ const PostUpload: React.FC<PostUploadProp> = ({ currentUser }) => {
   );
 };
 
-export default React.memo(PostUpload);
+export default React.memo(PostUploadModal);

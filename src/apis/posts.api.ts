@@ -24,11 +24,11 @@ export const postsApi = {
   },
   async getPost(id: string) {
     try {
-      const docRef = doc(collection(dbStore, "posts", id));
+      const docRef = doc(dbStore, "posts", id);
       const docSnap = await getDoc(docRef);
       return docSnap.exists() ? (docSnap.data() as any) : null;
     } catch (error) {
-      console.error("Error adding document: ", error);
+      console.error("Error get post document: ", error);
       throw error;
     }
   },
@@ -42,9 +42,10 @@ export const postsApi = {
       throw error;
     }
   },
-  async update(request: IRequestPost, id: string) {
+  async update(request: any, id: string) {
     try {
-      await updateDoc(doc(dbStore, "posts", id), { request });
+      await updateDoc(doc(dbStore, "posts", id), request)
+      return { success: true };
     } catch (error) {
       console.error("Error adding document: ", error);
       throw error;

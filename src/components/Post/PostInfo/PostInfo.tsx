@@ -15,6 +15,7 @@ import { useGetUserById } from "@/hooks";
 import { AvatarCustom } from "@/components/Avatar";
 // import { Video } from "@/components/Video";
 import { urlEndpoint } from "@/app/api/config";
+import { useRouter } from "next/navigation";
 
 interface PostInfoProp {
   post: any;
@@ -22,6 +23,7 @@ interface PostInfoProp {
 }
 const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser }) => {
   const { data: user } = useGetUserById(post?.user_id);
+  const router = useRouter();
   const queryClient = useQueryClient();
   const { mutateAsync } = useMutation({
     mutationFn: () => postsApi.delete(post.postId),
@@ -47,7 +49,11 @@ const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser }) => {
   return (
     <section className="pt-3 px-4 flex pb-3 border-b-gray-border border-b">
       <div className="mr-2">
-        <AvatarCustom className="w-[44px] h-[44px] rounded-full min-w-[44px]" path={currentUser?.avatar_url} username={currentUser.username.slice(0,2)}></AvatarCustom>
+        <AvatarCustom
+          className="w-[44px] h-[44px] rounded-full min-w-[44px]"
+          path={currentUser?.avatar_url}
+          username={currentUser.username.slice(0, 2)}
+        ></AvatarCustom>
       </div>
       <div className="flex-1 text-[15px] ">
         <div className="info flex gap-1 justify-between ">
@@ -64,7 +70,13 @@ const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser }) => {
                   onClick={handleDelete}
                   className="rounded-none hover:!text-white hover:!bg-hover-black-opacity px-4 text-[15px] font-bold flex flex-row gap-3"
                 >
-                  delete
+                  Delete
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => router.push("/post/" + post.postId)}
+                  className="rounded-none hover:!text-white hover:!bg-hover-black-opacity px-4 text-[15px] font-bold flex flex-row gap-3"
+                >
+                  Update
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

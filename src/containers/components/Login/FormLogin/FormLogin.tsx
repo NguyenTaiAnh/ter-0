@@ -50,7 +50,7 @@ function FormLogin({ email }: FormLoginProps) {
       console.log("Login failed:", error?.message);
       // Hiển thị lỗi cụ thể
       if (error.code === "auth/invalid-credential") {
-        alert("Sai email hoặc mật khẩu");
+        alert("Wrong email or password");
       }
     }
   }

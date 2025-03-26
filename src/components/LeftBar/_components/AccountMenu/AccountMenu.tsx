@@ -41,7 +41,7 @@ function AccountMenu({currentUser}:AccountMenuProps) {
           Add an existing account
         </Link>
         <Link href={"/logout"} onClick={()=>setIsOpen(false)} className="px-4 py-3 hover:bg-hover-menu">
-          Logout @username
+          Logout @{currentUser?.username}
         </Link>
       </DropdownMenuContent>
     </DropdownMenu>

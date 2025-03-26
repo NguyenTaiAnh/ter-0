@@ -78,7 +78,6 @@ const defaultValuePost = {
   quoted_post_id: null,
   reply_count: 0,
   retweet_count: 0,
-  updatedAt: updatedAt,
   createdAt: createdAt,
 };
 

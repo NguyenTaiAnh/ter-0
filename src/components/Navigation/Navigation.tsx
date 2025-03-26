@@ -7,10 +7,11 @@ import { PostUpload } from "../Post/PostUpload";
 import { PostInfo } from "../Post/PostInfo";
 import { Loader } from "lucide-react";
 import { getLocalStorage } from "@/ultils";
+import { IPost } from "@/types/post.type";
 
 interface NavigationProps {
   tabs: TTabs[];
-  posts?: any[];
+  posts?: IPost[];
   isLoading?: boolean;
 }
 
@@ -35,13 +36,13 @@ const Navigation: React.FC<NavigationProps> = ({ tabs, posts, isLoading }) => {
       </TabsList>
       {tabs.map((tab) => (
         <TabsContent key={tab.id} value={tab.tag} className="w-full">
-          {tab.id == 1 && <PostUpload  />}
+          {tab.id == 1 && <div className="border-b-[1px] border-gray-border"><PostUpload currentUser={currentUser} /></div>}
           {!posts && isLoading && (
             <Loader className="animate-spin flex flex-row justify-center w-full" />
           )}
           {posts &&
             posts.length > 0 &&
-            posts.map((i) => <PostInfo post={i} key={i.postId} currentUser={currentUser}/>)}
+            posts.map((i:IPost) => <PostInfo post={i} key={i.postId} currentUser={currentUser}/>)}
         </TabsContent>
       ))}
     </Tabs>

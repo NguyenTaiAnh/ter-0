@@ -5,10 +5,11 @@ import React from "react";
 
 async function page() {
   const res = await getUserSSR();
-  const currentUser = await res.json()
+  const currentUser = await res.json();
+
   return (
     <ModalLayout>
-      <PostContainer currentUser={currentUser} />
+      <PostContainer currentUser={currentUser}/>
     </ModalLayout>
   );
 }
