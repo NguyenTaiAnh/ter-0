@@ -1,16 +1,8 @@
-import EditProfileContainer from '@/containers/EditProfile/EditProfileContainer'
-import { ModalLayout } from '@/layouts/ModalLayout'
-import { getUserSSR } from '@/lib/services/auth.service'
-import React from 'react'
+import EditProfileContainer from "@/containers/EditProfile/EditProfileContainer";
+import React from "react";
 
-const page =async () => {
-  const response = await getUserSSR()
-  const currentUser =await response.json()
-  return (
-    <ModalLayout>
-     <EditProfileContainer currentUser={currentUser}/>
-    </ModalLayout>
-  )
-}
+const page = async () => {
+  return <EditProfileContainer />;
+};
 
-export default page
+export default page;

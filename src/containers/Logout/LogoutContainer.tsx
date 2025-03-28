@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { removeLocalStorage } from "@/ultils";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { destroyCookie } from "nookies";
+import { destroyCookie, setCookie } from "nookies";
 import React from "react";
 
 const LogoutContainer = () => {
@@ -14,10 +14,13 @@ const LogoutContainer = () => {
     return null;
   }
   const handleLogout = async () => {
-    await authApi.signOut()
+    await authApi.signOut();
+    removeLocalStorage("currentUser");
+    destroyCookie(null, "currentUser");
+    setCookie(null, "currentUser", '',{path:'/'});
+    setCookie(null, "token", '',{path:'/'});
+    destroyCookie(null, "token");
     router.push("/");
-    removeLocalStorage('currentUser')
-    destroyCookie(null,'token')
   };
   return (
     <section className="fixed inset-0 z-50 flex items-center bg-[#242d35] justify-center ">

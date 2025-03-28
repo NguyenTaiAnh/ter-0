@@ -1,9 +1,11 @@
-'use client';
+"use client";
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import React from 'react';
-import { ReactNode } from 'react';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React from "react";
+import { ReactNode } from "react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useStore } from "@/stores";
+import { IUser } from "@/types/user";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,7 +16,18 @@ const queryClient = new QueryClient({
   },
 });
 
-export function QueryProvider({ children }: { children: ReactNode }) {
+export function QueryProvider({
+  children,
+  severUser,
+}: {
+  children: ReactNode;
+  severUser?: IUser | null;
+}) {
+  const { setCurrentUser, user } = useStore();
+  React.useEffect(() => {
+    if (severUser && !user) setCurrentUser(severUser);
+  }, [severUser]);
+
   return (
     <QueryClientProvider client={queryClient}>
       {children}

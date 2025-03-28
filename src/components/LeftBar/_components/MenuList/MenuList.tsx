@@ -11,7 +11,7 @@ interface MenuListProps {
 const MenuList: React.FC<MenuListProps> = ({ item, active, currentUser }) => {
   return (
     <Link
-      href={item.id == 9 ? currentUser.username : item.link}
+      href={item.id == 9 ? '/'+currentUser.username : item.link}
       className={cn(
         "flex justify-center 3xl:justify-start gap-3 p-3 hover:bg-hover-menu w-fit rounded-full"
       )}

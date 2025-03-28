@@ -16,6 +16,7 @@ import { AvatarCustom } from "@/components/Avatar";
 // import { Video } from "@/components/Video";
 import { urlEndpoint } from "@/app/api/config";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface PostInfoProp {
   post: any;
@@ -46,25 +47,39 @@ const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser }) => {
       console.log({ error });
     }
   };
+
+  const handleClickDetail = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('a')) return;
+    if ((e.target as HTMLElement).getAttribute('role')) return;
+    router.push(user.username + "/status/" + post.postId);
+  };
   return (
-    <section className="pt-3 px-4 flex pb-3 border-b-gray-border border-b">
+    <section
+      className="pt-3 px-4 flex pb-3 border-b-gray-border border-b cursor-pointer z-0"
+      onClick={handleClickDetail}
+    >
       <div className="mr-2">
         <AvatarCustom
           className="w-[44px] h-[44px] rounded-full min-w-[44px]"
-          path={currentUser?.avatar_url}
-          username={currentUser.username.slice(0, 2)}
+          path={user?.avatar_url}
+          username={user?.username.slice(0, 2)}
         ></AvatarCustom>
       </div>
       <div className="flex-1 text-[15px] ">
         <div className="info flex gap-1 justify-between ">
           <div className="flex gap-2">
-            <p className=" text-text-default font-bold">{user?.username}</p>
+            <Link
+              href={user?.username || ""}
+              className=" hover:underline z-10 text-text-default font-bold"
+            >
+              {user?.name || user?.username}
+            </Link>
             <p className="text-icon-default ">@{user?.username}</p>
             <p className="text-icon-default ">7h</p>
           </div>
-          {currentUser.userId == post.user_id && (
+          {currentUser?.userId == post.user_id && (
             <DropdownMenu>
-              <DropdownMenuTrigger>...</DropdownMenuTrigger>
+              <DropdownMenuTrigger className="w-[35px] h-[35px] hover:text-mark-share">...</DropdownMenuTrigger>
               <DropdownMenuContent className="bg-black overflow-hidden border-0 outline-0 shadow-[0_0_10px] focus-visible:border-0 focus-visible:outline-0 text-white py-3 px-0">
                 <DropdownMenuItem
                   onClick={handleDelete}

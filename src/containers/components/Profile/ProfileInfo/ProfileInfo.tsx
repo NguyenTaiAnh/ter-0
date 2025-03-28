@@ -1,10 +1,11 @@
 import { AvatarCustom } from "@/components/Avatar";
+import { IUser } from "@/types/user";
 import { BriefcaseBusiness, CalendarDays } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
 interface PostInfoProps{
-  currentUser:any
+  currentUser:IUser | null
 }
  function ProfileInfo({currentUser}: PostInfoProps) {
    
@@ -12,7 +13,7 @@ interface PostInfoProps{
     "<p>🌈 Empowering engagement and earnings on web3 Solana</p></br> <p>Enhance your experience interaction and turn your creative ideas to sweet rewards</p>";
   const renderText = () => {
     return {
-      __html: inerText,
+      __html: currentUser?.bio || inerText,
     };
   };
   return (
@@ -20,7 +21,7 @@ interface PostInfoProps{
       {/* avatar & edit profile */}
       <div className="h-[68px] flex justify-between  relative">
         <div className="">
-          <AvatarCustom path={currentUser?.avatar_url} username={currentUser.username.slice(0,2)} className="w-[133px] h-[133px] absolute inset-0 -top-full"/>
+          <AvatarCustom path={currentUser?.avatar_url || ''} username={currentUser?.username.slice(0,2) || ''} className="w-[133px] h-[133px] absolute inset-0 -top-full"/>
         </div>
         {/* <Button className="bg-black border-gray-border border-[1px] font-bold text-[15px] text-text-default">
           Edit profile
@@ -32,8 +33,8 @@ interface PostInfoProps{
 
       {/* username */}
       <div className="username mt-1">
-        <p className="text-[20px] text-text-default font-bold">{currentUser.username}</p>
-        <p className="text-[15px] text-icon-default">@{currentUser.username}</p>
+        <p className="text-[20px] text-text-default font-bold">{currentUser?.name|| currentUser?.username}</p>
+        <p className="text-[15px] text-icon-default">@{currentUser?.username}</p>
       </div>
 
       {/* description */}

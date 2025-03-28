@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import QueryProvider from "@/lib/app-query-provider";
+import { getServerAuth } from "@/lib/auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,13 +27,15 @@ export const metadata: Metadata = {
   other: { "apple-mobile-web-app-capable": "yes" },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   modal,
 }: Readonly<{
   children: React.ReactNode;
   modal: React.ReactNode;
 }>) {
+  const { user } = await getServerAuth()
+  console.log({first: user})
   return (
     <html lang="en">
       <body
@@ -53,7 +56,7 @@ export default function RootLayout({
           zIndex={1600}
           showAtBottom={false}
         />
-        <QueryProvider>
+        <QueryProvider severUser={user} >
           {children}
           {modal}
         </QueryProvider>

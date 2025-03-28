@@ -1,50 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from 'next/headers'
+import { cookies } from "next/headers";
 
-const protectedRoutes = ['/home', '/explore', '/jobs', '/messages', '/notifications', '/profile','/post'];
+const protectedRoutes = [
+  "/home",
+  "/explore",
+  "/jobs",
+  "/messages",
+  "/notifications",
+  "/profile",
+  "/post",
+];
 
 export async function middleware(request: NextRequest) {
-  const cookieStore = await cookies()
-
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token");
+  const currentUser = cookieStore.get("currentUser")
+  console.log({token,currentUser})
   const { pathname } = request.nextUrl;
-  if (pathname.startsWith('/login') || pathname.startsWith('/signup')) {
-    const cookies =  cookieStore.get('user')
-
-    console.log("cookies 123: ", cookies)
-
+  if (pathname.startsWith("/login") || pathname.startsWith("/signup")) {
     return NextResponse.next();
   }
 
-  if(request.nextUrl.pathname == '/'){
-    cookieStore.delete('user')
+  if (request.nextUrl.pathname == "/" && token && currentUser) {
+    // cookieStore.delete('user')
+    const homeUrl = request.nextUrl.clone();
+    homeUrl.pathname = "/home";
+    return NextResponse.redirect(homeUrl);
   }
 
-
-  if (protectedRoutes.some(route => pathname.startsWith(route))) {
-    // Kiểm tra token session của NextAuth (NextAuth sử dụng cookie tên là __Secure-next-auth.session-token hoặc next-auth.session-token)
-    // const token = request.cookies.get('__Secure-next-auth.session-token') || request.cookies.get('next-auth.session-token');
-    const cookies =  cookieStore.get('token')
-    
-    console.log("cookies 123: ", cookies)
-    // Nếu không có token, chuyển hướng tới trang login
-    if (!cookies || cookies.value =='') {
+  if (protectedRoutes.some((route) => pathname.startsWith(route))) {
+    if (!token || token.value == "" || !currentUser) {
       // console.log("vo day")
       const loginUrl = request.nextUrl.clone();
-      loginUrl.pathname = '/';
+      loginUrl.pathname = "/";
+
       return NextResponse.redirect(loginUrl);
     }
   }
-  // console.log("cookies", cookieStore.get("token"));
-  // console.log({cookies})
-  // how to use zustand in middleware
 
   const url = request.nextUrl.pathname;
   console.log("url", url);
   return NextResponse.next();
-}
-
-export async function getCurrentUserSever(){
-  const cookieStore = await cookies()
-  const data= JSON.parse(cookieStore.get('currentUser')?.value || '')
-  return data
 }

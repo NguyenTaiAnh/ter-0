@@ -23,11 +23,8 @@ export const authApi = {
   },
 
   async signIn(email: string, password: string): Promise<User> {
-    const userCredential: UserCredential|any = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    const userCredential: UserCredential | any =
+      await signInWithEmailAndPassword(auth, email, password);
     // const user =  await FirestoreService.getUser(userCredential.user.uid)
     // setLocalStorage('currentUser',{
     //   ...user,userId:userCredential.user.uid
@@ -35,6 +32,7 @@ export const authApi = {
     const expires = new Date(Date.now() + 1 + 1000 * 60 * 60 * 24 * 365); // 365 days
     setCookie(null, "token", JSON.stringify(userCredential.user?.accessToken), {
       expires,
+      path:'/'
     });
     return userCredential.user;
   },
@@ -46,9 +44,14 @@ export const authApi = {
   getAuthUser(): User | null {
     return auth.currentUser;
   },
-  async getCurrentUser(userCredential:any):Promise<ICurrentUser | any> {
-    const user =  await FirestoreService.getUser(userCredential.uid);
-    console.log({usertest:user})
-    return user
-  }
+  async getCurrentUser(userCredential: any): Promise<ICurrentUser | any> {
+    const user = await FirestoreService.getUser(userCredential.uid);
+    console.log({ usertest: user });
+    return user;
+  },
+  async updateUser(userId: string, request: any): Promise<ICurrentUser | any> {
+    const res = await FirestoreService.updateUser(userId, request);
+    console.log({ resupdateUser: res });
+    return { success: true };
+  },
 };
