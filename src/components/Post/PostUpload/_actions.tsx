@@ -6,7 +6,7 @@ import { imagekit } from "@/ultils/imagekit";
 export const uploadImage = async (
   // formData: FormData,
   file: File,
-  settings: { type: EditorImageType; sensitive: boolean },
+  settings?: { type: EditorImageType; sensitive: boolean },
 ) => {
   return new Promise(async(resolve, reject) => {
     // const file = formData.get("file") as File;
@@ -20,9 +20,9 @@ export const uploadImage = async (
     const buffer = Buffer.from(bytes);
 
     const transformation = `w-600, ${
-      settings.type === "square"
+      settings?.type === "square"
         ? "ar-1-1"
-        : settings.type === "wide"
+        : settings?.type === "wide"
         ? "ar-16-9"
         : ""
     }`;
@@ -34,7 +34,7 @@ export const uploadImage = async (
       buffer,
       transformation,
       settings,
-      settings.sensitive
+      settings?.sensitive
     );
     imagekit.upload(
       {
@@ -47,7 +47,7 @@ export const uploadImage = async (
           },
         }),
           customMetadata: {
-            sensitive: settings.sensitive,
+            sensitive: settings?.sensitive || false,
           },
       },
       async function (error: any, result: any) {

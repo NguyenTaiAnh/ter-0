@@ -14,7 +14,7 @@ function HeaderProfile({currentUser}:HeaderProfileProps) {
             <ArrowLeft />
         </div>
         <div className=''>
-            <p className='text-[20px] text-text-default font-bold'>{currentUser.username}</p>
+            <p className='text-[20px] text-text-default font-bold'>{currentUser?.username}</p>
             <p className='text-icon-default text-[13px]'>0 posts</p>
         </div>
     </header>

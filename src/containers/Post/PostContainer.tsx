@@ -6,31 +6,29 @@ import { X } from "lucide-react";
 // import { CirclePower, Loader, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
-import { IUser } from "@/types/user";
 import { PostUploadModal } from "@/components/Post/PostUpload";
+import { useStore } from "@/stores";
 
 interface PostContainerProps {
-  currentUser: IUser;
 }
-const PostContainer: React.FC<PostContainerProps> = ({ currentUser }) => {
-  React.useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
+const PostContainer: React.FC<PostContainerProps> = ({ }) => {
+  const {user} = useStore(state => state)
+  // const {currentUser} = authStore((state)=>state.user)
+  const currentUser = user
+  console.log({currentUser})
   const router = useRouter();
   const pathName = usePathname();
 
-  if (!pathName.includes("/post")) {
+  if (!pathName.includes("post")) {
     return null;
   }
+
   return (
     <section className="absolute top-0 px-4 flex flex-col z-10 bg-black text-white rounded-xl w-full h-full  max-w-full modal-md:max-w-[600px] modal-md:top-[6%] modal-md:h-fit">
       <div className="flex justify-between relative h-[53px]  items-center">
         <div className="">
           <Button
-            onClick={() => router.push("/")}
+            onClick={() => router.back()}
             className=""
             variant={"link"}
           >

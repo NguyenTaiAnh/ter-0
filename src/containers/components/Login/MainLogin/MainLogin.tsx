@@ -41,6 +41,11 @@ function MainLogin({ setIsNext, setEmail, email }: MainLoginProps) {
         <Input
           onChange={(e) => setEmail(e.target.value)}
           type="text"
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              setIsNext(true);
+            }
+          }}
           value={email}
           placeholder="Phone, email, or usernames..."
           className="px-2 w-full h-[56px] border-[1px] rounded-md focus-visible:border-gray-border focus-visible:ring-0 border-gray-border"

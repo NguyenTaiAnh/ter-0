@@ -13,7 +13,7 @@ import { useParams } from "next/navigation";
 import { UseGetPostDetail } from "@/hooks";
 
 interface PostUploadModalProp {
-  currentUser: IUser;
+  currentUser: IUser | null;
 }
 const PostUploadModal: React.FC<PostUploadModalProp> = ({ currentUser }) => {
   const param = useParams();
@@ -72,7 +72,7 @@ const PostUploadModal: React.FC<PostUploadModalProp> = ({ currentUser }) => {
       <div className="relative w-10 h-10 rounded-full overflow-hidden">
         <AvatarCustom
           path={currentUser?.avatar_url || ""}
-          username={currentUser?.username.slice(0, 2)}
+          username={currentUser?.username.slice(0, 2)||''}
           className="w-full h-full"
         />
       </div>
