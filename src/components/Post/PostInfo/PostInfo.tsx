@@ -17,12 +17,14 @@ import { AvatarCustom } from "@/components/Avatar";
 import { urlEndpoint } from "@/app/api/config";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface PostInfoProp {
   post: any;
   currentUser: any;
+  isDetail?: boolean;
 }
-const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser }) => {
+const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser, isDetail }) => {
   const { data: user } = useGetUserById(post?.user_id);
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -49,13 +51,17 @@ const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser }) => {
   };
 
   const handleClickDetail = (e: React.MouseEvent) => {
-    if ((e.target as HTMLElement).closest('a')) return;
-    if ((e.target as HTMLElement).getAttribute('role')) return;
+    if (isDetail) return;
+    if ((e.target as HTMLElement).closest("a")) return;
+    if ((e.target as HTMLElement).getAttribute("role")) return;
     router.push(user.username + "/status/" + post.postId);
   };
   return (
     <section
-      className="pt-3 px-4 flex pb-3 border-b-gray-border border-b cursor-pointer z-0"
+      className={cn(
+        "pt-3 px-4 flex pb-3 border-b-gray-border border-b  z-0",
+        !isDetail && "cursor-pointer"
+      )}
       onClick={handleClickDetail}
     >
       <div className="mr-2">
@@ -79,7 +85,9 @@ const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser }) => {
           </div>
           {currentUser?.userId == post.user_id && (
             <DropdownMenu>
-              <DropdownMenuTrigger className="w-[35px] h-[35px] hover:text-mark-share">...</DropdownMenuTrigger>
+              <DropdownMenuTrigger className="w-[35px] h-[35px] hover:text-mark-share">
+                ...
+              </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-black overflow-hidden border-0 outline-0 shadow-[0_0_10px] focus-visible:border-0 focus-visible:outline-0 text-white py-3 px-0">
                 <DropdownMenuItem
                   onClick={handleDelete}
