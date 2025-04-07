@@ -23,8 +23,12 @@ export interface IRequestPost {
 export interface IRequestComment {
   user_id: string;
   content: string;
-  createdAt: string;
-  updatedAt: string;
+  like_count?: number;
+  media_url?: string;
+  media_type?:string;
+  createdAt: any;
+  updatedAt: any;
+  shape?:EditorImageType 
 }
 
 export interface IRequestLike {

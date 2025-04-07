@@ -30,7 +30,9 @@ export async function middleware(request: NextRequest) {
 
   if (protectedRoutes.some((route) => pathname.startsWith(route))) {
     if (!token || token.value == "" || !currentUser) {
-      // console.log("vo day")
+      console.log("vo day")
+      cookieStore.delete("token");
+      cookieStore.delete("currentUser");
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = "/";
 

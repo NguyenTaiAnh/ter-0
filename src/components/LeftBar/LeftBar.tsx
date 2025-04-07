@@ -7,12 +7,13 @@ import { Image } from "../Image";
 import { usePathname } from "next/navigation";
 import { ActionMore } from "./_components/ActionMore";
 import { MenuList } from "./_components/MenuList";
+import { useStore } from "@/stores";
 
 interface LeftBarProps {
-  currentUser: any
 }
-const LeftBar: React.FC<LeftBarProps> = ({currentUser}) => {
+const LeftBar: React.FC<LeftBarProps> = ({}) => {
   const [active, setActive] = React.useState<string>("/home");
+  const { user } = useStore();
   const pathName = usePathname();
   React.useEffect(() => {
     setActive(pathName);
@@ -36,7 +37,7 @@ const LeftBar: React.FC<LeftBarProps> = ({currentUser}) => {
         <div className="flex flex-col text-[20px]">
           {menuList.map((item) => (
             <div key={item.id}>
-              <MenuList item={item} active={active} currentUser={currentUser}/>
+              <MenuList item={item} active={active} currentUser={user}/>
             </div>
           ))}
           <ActionMore/>
@@ -55,7 +56,7 @@ const LeftBar: React.FC<LeftBarProps> = ({currentUser}) => {
         </Link>
       </div>
       {/* profile */}
-      <AccountMenu currentUser={currentUser} />
+      <AccountMenu currentUser={user} />
     </section>
   );
 };

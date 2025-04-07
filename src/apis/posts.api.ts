@@ -26,7 +26,7 @@ export const postsApi = {
     try {
       const docRef = doc(dbStore, "posts", id);
       const docSnap = await getDoc(docRef);
-      return docSnap.exists() ? (docSnap.data() as any) : null;
+      return docSnap.exists() ? ({...(docSnap.data() as any), postId: id}) : null;
     } catch (error) {
       console.error("Error get post document: ", error);
       throw error;

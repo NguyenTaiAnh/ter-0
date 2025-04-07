@@ -94,7 +94,7 @@ const PostUploadModal: React.FC<PostUploadModalProp> = ({ currentUser }) => {
           {...register("desc")}
           placeholder="What is happening?!"
           name="desc"
-          className="bg-transparent outline-none placeholder-text-textGray text-xl max-h-[60vh]"
+          className="bg-transparent outline-none placeholder-text-textGray text-xl max-h-[60vh] resize-none"
         />
 
         {/* PREVIEW IMAGE */}

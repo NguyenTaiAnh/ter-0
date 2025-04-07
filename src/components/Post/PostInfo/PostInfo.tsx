@@ -23,8 +23,9 @@ interface PostInfoProp {
   post: any;
   currentUser: any;
   isDetail?: boolean;
+  isComment?: boolean
 }
-const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser, isDetail }) => {
+const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser, isDetail, isComment }) => {
   const { data: user } = useGetUserById(post?.user_id);
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -51,87 +52,98 @@ const PostInfo: React.FC<PostInfoProp> = ({ post, currentUser, isDetail }) => {
   };
 
   const handleClickDetail = (e: React.MouseEvent) => {
-    if (isDetail) return;
+    if (isDetail || isComment) return;
     if ((e.target as HTMLElement).closest("a")) return;
     if ((e.target as HTMLElement).getAttribute("role")) return;
     router.push(user.username + "/status/" + post.postId);
   };
   return (
-    <section
-      className={cn(
-        "pt-3 px-4 flex pb-3 border-b-gray-border border-b  z-0",
-        !isDetail && "cursor-pointer"
-      )}
-      onClick={handleClickDetail}
-    >
-      <div className="mr-2">
-        <AvatarCustom
-          className="w-[44px] h-[44px] rounded-full min-w-[44px]"
-          path={user?.avatar_url}
-          username={user?.username.slice(0, 2)}
-        ></AvatarCustom>
-      </div>
-      <div className="flex-1 text-[15px] ">
-        <div className="info flex gap-1 justify-between ">
-          <div className="flex gap-2">
-            <Link
-              href={user?.username || ""}
-              className=" hover:underline z-10 text-text-default font-bold"
-            >
-              {user?.name || user?.username}
-            </Link>
-            <p className="text-icon-default ">@{user?.username}</p>
-            <p className="text-icon-default ">7h</p>
+    <section>
+      <div
+        className={cn(
+          "pt-3 px-4 flex pb-3  z-02 ",
+          !isDetail && "cursor-pointer border-b-gray-border border-b"
+        )}
+        onClick={handleClickDetail}
+      >
+        <div className="mr-2">
+          <AvatarCustom
+            className="w-[44px] h-[44px] rounded-full min-w-[44px]"
+            path={user?.avatar_url}
+            username={user?.username.slice(0, 2)}
+          ></AvatarCustom>
+        </div>
+        <div className="flex-1 text-[15px] ">
+          <div className="info flex gap-1 justify-between ">
+            <div className="flex gap-2">
+              <Link
+                href={user?.username || ""}
+                className=" hover:underline z-10 text-text-default font-bold"
+              >
+                {user?.name || user?.username}
+              </Link>
+              <p className="text-icon-default ">@{user?.username}</p>
+              <p className="text-icon-default ">7h</p>
+            </div>
+            {!isComment && currentUser?.userId == post.user_id && (
+              <DropdownMenu>
+                <DropdownMenuTrigger className="w-[35px] h-[35px] hover:text-mark-share">
+                  ...
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-black overflow-hidden border-0 outline-0 shadow-[0_0_10px] focus-visible:border-0 focus-visible:outline-0 text-white py-3 px-0">
+                  <DropdownMenuItem
+                    onClick={handleDelete}
+                    className="rounded-none hover:!text-white hover:!bg-hover-black-opacity px-4 text-[15px] font-bold flex flex-row gap-3"
+                  >
+                    Delete
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => router.push("/post/" + post.postId)}
+                    className="rounded-none hover:!text-white hover:!bg-hover-black-opacity px-4 text-[15px] font-bold flex flex-row gap-3"
+                  >
+                    Update
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
-          {currentUser?.userId == post.user_id && (
-            <DropdownMenu>
-              <DropdownMenuTrigger className="w-[35px] h-[35px] hover:text-mark-share">
-                ...
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-black overflow-hidden border-0 outline-0 shadow-[0_0_10px] focus-visible:border-0 focus-visible:outline-0 text-white py-3 px-0">
-                <DropdownMenuItem
-                  onClick={handleDelete}
-                  className="rounded-none hover:!text-white hover:!bg-hover-black-opacity px-4 text-[15px] font-bold flex flex-row gap-3"
-                >
-                  Delete
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => router.push("/post/" + post.postId)}
-                  className="rounded-none hover:!text-white hover:!bg-hover-black-opacity px-4 text-[15px] font-bold flex flex-row gap-3"
-                >
-                  Update
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <div className="content">
+            <p className=" text-text-default font-bold">{post?.content}</p>
+            <div className="picture my-2">
+              {post?.media_type && post?.media_type.includes("image") && (
+                <Image
+                  path={post?.media_url}
+                  alt="media"
+                  w={0}
+                  h={0}
+                  // className="w-full"
+                  className={`w-full ${
+                    post?.shape === "original"
+                      ? "h-full object-contain"
+                      : post?.shape === "square"
+                      ? "aspect-square object-cover"
+                      : "aspect-video object-cover"
+                  }`}
+                />
+              )}
+              {post?.media_type &&  post?.media_type.includes("video") && (
+                <video src={urlEndpoint + post?.media_url} controls />
+                // <Video path={ post?.media_url} />
+              )}
+            </div>
+          </div>
+          {!isDetail && (
+            <div className=" h-[32px] mt-3 flex justify-between">
+              <PostInteraction />
+            </div>
           )}
         </div>
-        <div className="content">
-          <p className=" text-text-default font-bold">{post?.content}</p>
-          <div className="picture my-2">
-            {post?.media_type.includes("image") && (
-              <Image
-                path={post?.media_url}
-                alt="media"
-                w={0}
-                h={0}
-                // className="w-full"
-                className={`w-full ${
-                  post?.shape === "original"
-                    ? "h-full object-contain"
-                    : post?.shape === "square"
-                    ? "aspect-square object-cover"
-                    : "aspect-video object-cover"
-                }`}
-              />
-            )}
-            {post?.media_type.includes("video") && (
-              <video src={urlEndpoint + post?.media_url} controls />
-              // <Video path={ post?.media_url} />
-            )}
-          </div>
-        </div>
-        <PostInteraction />
       </div>
+      {isDetail && (
+        <div className=" h-[46px] w-[calc(100% - 32px)] mx-4 px-2 flex justify-between items-center border-y-gray-border border-y">
+          <PostInteraction />
+        </div>
+      )}
     </section>
   );
 };

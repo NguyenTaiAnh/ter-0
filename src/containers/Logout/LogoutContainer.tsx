@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { removeLocalStorage } from "@/ultils";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { destroyCookie, setCookie } from "nookies";
+import { destroyCookie } from "nookies";
 import React from "react";
 
 const LogoutContainer = () => {
@@ -17,8 +17,6 @@ const LogoutContainer = () => {
     await authApi.signOut();
     removeLocalStorage("currentUser");
     destroyCookie(null, "currentUser");
-    setCookie(null, "currentUser", '',{path:'/'});
-    setCookie(null, "token", '',{path:'/'});
     destroyCookie(null, "token");
     router.push("/");
   };

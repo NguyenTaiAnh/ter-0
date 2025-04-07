@@ -7,12 +7,16 @@ import { useParams } from "next/navigation";
 import { PostInfo } from "@/components/Post/PostInfo";
 const ContentPostDetail = () => {
   const param = useParams();
-  console.log({ test: param.postId });
-  const { user } = useStore();
+  const { user, setPost } = useStore();
   // useGetPostDetail
   const { data, isLoading } = UseGetPostDetail(param.postId?.toString() || "");
-  console.log({ data, isLoading });
-  console.log({ user });
+  
+  React.useEffect(() => {
+    if (data) {
+      setPost(data);
+    }
+  }, [data, setPost]);
+
   return isLoading ? (
     <Loader className="animate-spin" />
   ) : (

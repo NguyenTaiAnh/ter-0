@@ -1,3 +1,4 @@
+import PageNotFound from "@/app/_not-found";
 import { LeftBar } from "@/components/LeftBar";
 import RightBar from "@/components/RightBar/RightBar";
 import { cookies } from "next/headers";
@@ -8,10 +9,13 @@ interface MainLayoutProps {
 }
 async function MainLayout({ children }: MainLayoutProps) {
   const cookieStore = await cookies()
-  const data= JSON.parse(cookieStore.get('currentUser')?.value || '')
+  if (!cookieStore.get('currentUser')?.value) {
+    return <PageNotFound />
+  }
+    
   return (
     <div className="flex flex-row justify-center w-full sm:max-w-sm smd:max-w-smd md:max-w-md xl:max-w-xl 3xl:max-w-3xl bg-black sm:mx-auto text-white">
-      <LeftBar currentUser={data} />
+      <LeftBar/>
       {children}
       <RightBar />
     </div>

@@ -11,7 +11,7 @@ import React from "react";
 
 const PostInteraction = () => {
   return (
-    <div className="flex justify-between h-[32px] mt-3">
+    <div className="flex justify-between w-full">
       <Button
         className="group !p-0 hover:no-underline text-icon-default hover:text-cmt-blue"
         variant={"link"}

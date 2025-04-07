@@ -3,16 +3,20 @@ import { EditorImageType } from "@/types/editor-image.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postsApi } from "@/apis/posts.api";
 import { QueryKeys } from "@/constants/queryKeys.const";
-import { IPost, IRequestPost } from "@/types/post.type";
+import { IPost, IRequestComment, IRequestPost } from "@/types/post.type";
 import { defaultValuePost } from "@/mocks/db";
 import { getLocalStorage } from "@/ultils";
 import { uploadImage } from "@/components/Post/PostUpload/_actions";
 import { useForm, useWatch } from "react-hook-form";
 import { usePathname, useRouter } from "next/navigation";
 import { serverTimestamp } from "firebase/firestore";
+import { cmtApi } from "@/apis/cmt.api";
 
-export const usePostUploadLogic = (post?: IPost) => {
-  console.log({ post });
+export const usePostUploadLogic = (
+  post?: IPost | null,
+  isComment: boolean = false
+) => {
+  console.log("mxncvbzxmncvbzxc,mvnbzxv,zxcvb,mzxcvb,mzx",{ post,isComment });
   const pathName = usePathname();
   const router = useRouter();
   const currentUser = getLocalStorage("currentUser");
@@ -58,6 +62,23 @@ export const usePostUploadLogic = (post?: IPost) => {
       if (pathName.includes("post")) router.push("/");
     },
   });
+
+  const mutation = useMutation({
+    mutationFn: (requestCmt: IRequestComment) =>
+      cmtApi.createCmt(post?.postId || "", requestCmt),
+    onSuccess: (res) => {
+      console.log({ dataPostCreate: res });
+      // queryClient.refetchQueries({
+      //   queryKey: [QueryKeys.POSTS],
+      //   type: "active",
+      // });
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.POST_LIST_COMMENT] });
+    },
+    onError: (erro: any) => {
+      console.log({ erro });
+    },
+  });
+
   const { mutate: mutateEdit } = useMutation({
     mutationFn: (requestPost: IRequestPost) =>
       postsApi.update(requestPost, post?.postId || ""),
@@ -69,9 +90,9 @@ export const usePostUploadLogic = (post?: IPost) => {
       });
       if (pathName.includes("post")) router.push("/");
     },
-    onError:(erro) => {
-      console.log({erro})
-    }
+    onError: (erro) => {
+      console.log({ erro });
+    },
   });
 
   // const watchingDesc = watch("desc");
@@ -86,10 +107,15 @@ export const usePostUploadLogic = (post?: IPost) => {
       if (media) {
         media_url = await uploadImage(media, settings);
       }
-      if (post) {
-        updatePost(data, media_url);
+      console.log({isComment})
+      if (isComment) {
+        await createComment(data, media_url);
       } else {
-        createPost(data, media_url);
+        if (post) {
+          updatePost(data, media_url);
+        } else {
+          createPost(data, media_url);
+        }
       }
       console.log({ media_url });
       setIsLoading(false);
@@ -100,8 +126,9 @@ export const usePostUploadLogic = (post?: IPost) => {
       resetValue();
     }
   };
+
   const updatePost = (data: any, media_url: any) => {
-    console.log({updatepost: data, media_url})
+    console.log({ updatepost: data, media_url });
     const requestPost: IRequestPost = {
       ...post,
       ...defaultValuePost,
@@ -115,6 +142,7 @@ export const usePostUploadLogic = (post?: IPost) => {
     console.log({ requestPost });
     mutateEdit(requestPost);
   };
+
   const createPost = (data: any, media_url: any) => {
     const requestPost: IRequestPost = {
       content: data.desc,
@@ -127,6 +155,23 @@ export const usePostUploadLogic = (post?: IPost) => {
     console.log({ requestPost });
     mutate(requestPost);
   };
+  const createComment = async (data: any, media_url: any) => {
+    const requestCmt: IRequestComment = {
+      content: data.desc,
+      media_url: media_url?.toString() || "",
+      user_id: currentUser.userId,
+      media_type: typeMedia,
+      shape: settings.type,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    };
+    console.log({ requestCmt });
+    try {
+      await mutation.mutateAsync(requestCmt);
+    } catch (error) {
+      console.log({ error });
+    }
+  };
   const handleMediaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log({ e: e.target.files });
     if (e.target.files && e.target.files[0]) {
@@ -134,6 +179,7 @@ export const usePostUploadLogic = (post?: IPost) => {
       setMedia(e.target.files[0]);
     }
   };
+
   const resetValue = () => {
     reset();
     setMedia(null);
@@ -159,8 +205,8 @@ export const usePostUploadLogic = (post?: IPost) => {
       watchingFile,
       watchingDesc,
       setTypeMedia,
-      setValue
+      setValue,
     }),
-    [media, isText, isEditorOpen,settings,isLoading]
+    [media, isText, isEditorOpen, settings, isLoading]
   );
 };

@@ -14,6 +14,7 @@ import {
 
 export const cmtApi = {
   async createCmt(postId: string, request: IRequestComment) {
+    console.log({request})
     try {
       const docRef = collection(dbStore, "posts", postId, "comments");
       await addDoc(docRef, request);
@@ -43,7 +44,7 @@ export const cmtApi = {
   async getCmtPost(postId: string) {
     try {
       const commentsRef = collection(dbStore, "posts", postId, "comments");
-      const q = query(commentsRef, orderBy("createdAt")); // Order comments by creation time
+      const q = query(commentsRef, orderBy("createdAt","desc")); // Order comments by creation time
       const querySnapshot = await getDocs(q);
       const comments: any[] = [];
       querySnapshot.forEach((doc) => {
